@@ -1,0 +1,8 @@
+Description:
+    Creates a new Angular directive
+
+Example:
+    $ yo boom:controller dir_name
+
+    This will create:
+        app/js/directives/dir_name.js

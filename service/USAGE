@@ -1,0 +1,8 @@
+Description:
+    Creates a new Angular Service
+
+Example:
+    $ yo boom:service service_name
+
+    This will create:
+        app/js/services/service_name.js

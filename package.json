@@ -1,0 +1,44 @@
+{
+  "name": "generator-boom",
+  "version": "0.0.0",
+  
+  "description": "An Angular.js generator for Yeoman",
+  
+  "keywords": [
+    "yeoman-generator"
+  ],
+  
+  "homepage": "https://github.com/aamirshah/generator-boom",
+  "bugs": "https://github.com/aamirshah/generator-boom/issues",
+  
+  "author": {
+    "name": "Aamir Shah",
+    "email": "cse.aamir@gmail.com",
+    "url": "https://github.com/aamirshah"
+  },
+
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/someuser/generator-boom.git"
+  },
+  
+  "dependencies": {
+    "yeoman-generator": "~0.14.0"
+  },
+
+  "devDependencies": {
+   
+  },
+
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

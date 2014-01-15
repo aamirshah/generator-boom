@@ -1,0 +1,19 @@
+{
+  "name": "<%= _.slugify(_.humanize(appname)) %>",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "1.2.6" <% if (resourceModule) { %>,
+    "angular-resource": "1.2.6"<% } if (cookiesModule) { %>,
+    "angular-cookies": "1.2.6"<%  } if (sanitizeModule) { %>,
+    "angular-sanitize": "1.2.6"<% } if (routeModule) { %>,
+    "angular-route": "1.2.6"<%    } if (animateModule) { %>,
+    "angular-animate": "1.2.6"<%  } if (jquery) { %>,
+    "jquery": "*"<% }  if (zepto) { %>,
+    "zepto": "*"<% } %>
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.6",
+    "angular-scenario": "1.2.6"
+  }
+}
+

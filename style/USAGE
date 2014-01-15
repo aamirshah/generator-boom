@@ -1,0 +1,14 @@
+Description:
+    Creates a new Style File
+
+Example:
+    $ yo boom:style file_name
+
+    This will create:
+        app/css/file_name.css
+
+
+    $ yo boom:style file_name -scss
+
+    This will create:
+        app/css/file_name.scss

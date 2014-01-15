@@ -1,0 +1,13 @@
+Description:
+    Creates a new Angular factory
+
+Example:
+    $ yo boom:factory fact_name
+
+    This will create:
+        app/js/factories/fact_name.js
+
+
+    $ yo boom:factory fact_name -api
+
+    This will add the skeleton for the APIs

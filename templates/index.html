@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title><%= scriptAppName %></title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+
+  <body ng-app="<%= scriptAppName %>">
+    <h1>Welcome to Sourcebits!</h1>
+
+    <% if (ngRoute) { %>
+    <div ng-view></div>
+    <% } %>
+
+    <!-- endbuild -->
+  </body>
+</html>

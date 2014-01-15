@@ -1,0 +1,10 @@
+Description:
+    Creates a new AngularJS constant.
+    
+
+Example:
+    $ yo boom:constant name
+    > Enter the value for the constant name : [value]
+    
+    This will add the constant 'name' with value provide on the terminal inside:
+        app/js/main.js
