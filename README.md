@@ -5,6 +5,9 @@ Welcome to Boom Angular.js Generator!
 
 This project is a Yeoman Generator, using which we can speed up our web app development. The command name is **$ yo boom**. Boom because its indeed a BOOM.
 
+You can also check the [NPM Repository](https://npmjs.org/package/generator-boom) 
+
+
 >Lets quick walk through the **boom** commands.And understand how quickly we can <i class="icon-cog"></i> `Setup` the entire project with a `boom`.
 
 ----------

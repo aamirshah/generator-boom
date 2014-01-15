@@ -1,6 +1,6 @@
 {
   "name": "generator-boom",
-  "version": "0.0.0",
+  "version": "0.0.2",
   
   "description": "An Angular.js generator for Yeoman",
   
@@ -20,7 +20,7 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/someuser/generator-boom.git"
+    "url": "git://github.com/aamirshah/generator-boom.git"
   },
   
   "dependencies": {
