@@ -7,20 +7,28 @@ We can add Style files any time we want. Both CSS and SCSS.
 
 Command Usage
 -------
-To add a new ***Style***  use:
     
 
-Example:
+***Example***
+
 ```
-     $ yo boom:style file_name
+    $ yo boom:style file_name
 ```
 
 This will create:
-    > app/css/file_name.css
+
+```
+    app/css/file_name.css
+```
+
+To create a scss file 
 
 ```
     $ yo boom:style file_name -scss
 ```
 
 This will create:
-    > app/css/file_name.scss
+
+```
+    app/css/file_name.scss
+```

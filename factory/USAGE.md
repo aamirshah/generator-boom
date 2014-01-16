@@ -7,8 +7,6 @@ We can create Angular.js Factories on fly. For further details refer ***Angular.
 
 Command Usage
 -------
-Creates a new ***Angular.js*** factory.
-    
 
 ***Example***
 
