@@ -88,18 +88,18 @@ To start the server
 
 The avilable generators are
 
-* [boom:controller](http://#)
-* [boom:directive](http://#)
-* [boom:filter](http://#)
-* [boom:route](http://#)
-* [boom:service](http://#)
-* [boom:provider](http://#)
-* [boom:factory](http://#)
-* [boom:value](http://#)
-* [boom:constant](http://#)
-* [boom:font](http://#)
-* [boom:style](http://#)
-* [boom:view](http://#)
+* [boom:controller](https://github.com/aamirshah/generator-boom/blob/master/controller/USAGE.md)
+* [boom:directive](https://github.com/aamirshah/generator-boom/blob/master/directive/USAGE.md)
+* [boom:filter](https://github.com/aamirshah/generator-boom/blob/master/filter/USAGE.md)
+* [boom:route](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md)
+* [boom:service](https://github.com/aamirshah/generator-boom/blob/master/service/USAGE.md)
+* [boom:provider](https://github.com/aamirshah/generator-boom/blob/master/provider/USAGE.md)
+* [boom:factory](https://github.com/aamirshah/generator-boom/blob/master/factory/USAGE.md)
+* [boom:value](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md)
+* [boom:constant](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md)
+* [boom:font](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md)
+* [boom:style](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md)
+* [boom:view](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md)
 
 
 <i class="icon-pencil"></i> Special Thanks

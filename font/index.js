@@ -31,12 +31,15 @@ Generator.prototype.createViewFiles = function createViewFiles() {
     needle: '/* ---> Do not delete this comment <--- */',
     splicable: [
       "\n@font-face { \n" +
-        "\tfont-family: '" + this.name + "'; \n" +
+        "\tfont-family: '" + this.name + "'; \n" +        
         "\tsrc: url('../fonts/" + this.name + "/" + this.name + ".eot'); /* IE9 Compat Modes */ \n" +
+        "\tsrc: local('☺'), \n" +
         "\tsrc: url('../fonts/" + this.name + "/" + this.name + ".eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ \n" +
           "\t\turl('../fonts/" + this.name + "/" + this.name + ".woff') format('woff'), /* Modern Browsers */ \n" +
           "\t\turl('../fonts/" + this.name + "/" + this.name + ".ttf')  format('truetype'), /* Safari, Android, iOS */ \n" +
           "\t\turl('../fonts/" + this.name + "/" + this.name + ".svg#svgFontName') format('svg'); /* Legacy iOS */ \n" +
+        "\tfont-weight: 'normal'; \n" +
+        "\tfont-style: 'normal'; \n" +
       "}"
     ]
   };
@@ -46,4 +49,3 @@ Generator.prototype.createViewFiles = function createViewFiles() {
 
   console.log('Added font '+ this.name);
 };
-

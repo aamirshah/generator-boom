@@ -16,7 +16,9 @@ Example:
 ```
 
    This will create:
-    > app/js/factories/factory_name.js
+    >  app/js/factories/factory_name.js
+    >
+    >
 
 ```
    $ yo boom:factory factory_name -api
