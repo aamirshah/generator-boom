@@ -1,8 +1,0 @@
-Description:
-    Creates a new Angular Provider
-
-Example:
-    $ yo boom:provider provider_name
-
-    This will create:
-        app/js/providers/provider_name.js
