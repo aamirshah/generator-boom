@@ -32,7 +32,7 @@ This will create:
 ````							 
 	app/template/file_name.html
 	app/css/file_name.css
-	app/js/controllers/file_name.css
+	app/js/controllers/file_name.js
 ```
 
 To skip adding the controller

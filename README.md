@@ -1,4 +1,4 @@
-Welcome to Boom Angular.js Generator!
+Boom Angular.js Generator!
 =====================
 
 ---------------
@@ -83,7 +83,7 @@ To start the server
 
 ----------
 
-<i class="icon-refresh"></i> Generators
+<i class="icon-refresh"></i> Boom Commands
 ---------------
 
 The avilable generators are

@@ -14,7 +14,7 @@ Command Usage
     $ yo boom:provider provider_name
 ```
 
-This will add the constant 'name' with value provide on the terminal inside:
+This will create
 
 ```
 	app/js/providers/provider_name.js

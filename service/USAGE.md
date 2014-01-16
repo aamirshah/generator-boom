@@ -15,7 +15,7 @@ Command Usage
     $ yo boom:service service_name
 ```
 
-This will add the constant 'name' with value provide on the terminal inside:
+This will create
 
 ```
     app/js/services/service_name.js
