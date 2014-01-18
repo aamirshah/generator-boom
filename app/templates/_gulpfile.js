@@ -21,7 +21,7 @@ var gutil = require('gulp-util'),
 	require('gulp-grunt')(gulp); 
 	
 	
-var isProduction = false;
+var isProduction = true;
 
 
 gulp.task('server', function() {
@@ -79,7 +79,7 @@ gulp.task('lint', function() {
 	});
 
 	gulp.task('concat:js', function() {
-
+		console.log('isProduction  ', isProduction);
 	  	gulp.src(['app/js/main.js', 'app/js/**/*.js'])
 		    .pipe(concat("all.js"))
 		    .pipe(gulp.dest('./build/js/'))
@@ -177,28 +177,28 @@ gulp.task('lint', function() {
 	gulp.task('watch:css', function () {
 		console.log('watch:css');
 		gulp.watch(['app/css/*.css', 'app/css/**/*.css'], function() {			
-			gulp.run('clean:css', 'concat:css');
+			gulp.run('concat:css');
 		});
 	});
 
 	gulp.task('watch:scss', function () {
 		console.log('watch:scss');
 		gulp.watch(['app/css/*.scss', 'app/css/**/*.scss'], function() {
-			gulp.run('clean:css', 'convert:scss', 'concat:css');
+			gulp.run('convert:scss', 'concat:css');
 		});
 	});
 
 	gulp.task('watch:js', function () {
 		console.log('watch:js');
 		gulp.watch(['app/js/*.js', 'app/js/**/*.js'], function() {
-			gulp.run('clean:js', 'concat:js');
+			gulp.run('concat:js');
 		});
 	});
 
 	gulp.task('watch:html', function () {
 		console.log('watch:html');
 		gulp.watch(['app/templates/*.html', 'app/templates/**/*.html'], function() {
-			gulp.run('clean:html', 'copy:html');
+			gulp.run('copy:html');
 		});
 	});
 
@@ -209,19 +209,17 @@ gulp.task('lint', function() {
 		});
 	});
 
-	
-
 	gulp.task('watch:images', function () {
 
 		gulp.watch(['app/images/**', 'app/templates/**/**'], function() {
-			gulp.run('clean:images', 'copy:images');
+			gulp.run('copy:images');
 		});
 	});
 
 	gulp.task('watch:fonts', function () {
 		console.log('watch:fonts');
 		gulp.watch(['app/fonts/**', 'app/fonts/**/**'], function() {
-			gulp.run('clean:fonts', 'copy:fonts');
+			gulp.run('copy:fonts');
 		});
 	});
 
@@ -234,33 +232,33 @@ gulp.task('lint', function() {
 	gulp.task('clean', function() {
 		console.log('clean');
 		// gulp.run('clean:css', 'clean:js', 'clean:html', 'clean:images', 'clean:fonts');
-	    // gulp.src(['./build/'], {read: false})
-	    //     .pipe(clean({force: true}));
+	    gulp.src(['build/'], {read: false})
+	        .pipe(clean({force: true}));
 	});
 
 	gulp.task('clean:css', function() {
-	    // gulp.src(['build/css/'], {read: false})
-	    //     .pipe(clean({force: true}));
+	    gulp.src(['build/css/'], {read: false})
+	        .pipe(clean({force: true}));
 	});
 
 	gulp.task('clean:js', function() {
-	    // gulp.src(['build/js/'], {read: false})
-	    //     .pipe(clean({force: true}));
+	    gulp.src(['build/js/'], {read: false})
+	        .pipe(clean({force: true}));
 	});
 
 	gulp.task('clean:html', function() {
-	    // gulp.src(['build/templates/'], {read: false})
-	    //     .pipe(clean({force: true}));
+	    gulp.src(['build/templates/'], {read: false})
+	        .pipe(clean({force: true}));
 	});
 
 	gulp.task('clean:images', function() {
-	    // gulp.src(['build/images/'], {read: false})
-	    //     .pipe(clean({force: true}));
+	    gulp.src(['build/images/'], {read: false})
+	        .pipe(clean({force: true}));
 	});
 
 	gulp.task('clean:fonts', function() {
-	    // gulp.src(['build/fonts/**', 'build/fonts/**/**'], {read: false})
-	    //     .pipe(clean({force: true}));
+	    gulp.src(['build/fonts/**', 'build/fonts/**/**'], {read: false})
+	        .pipe(clean({force: true}));
 	});
 
 
@@ -268,13 +266,13 @@ gulp.task('lint', function() {
 =                             Start                          =
 ============================================================*/
 
-// NODE_ENV=production gulp build  
-gulp.task('build', function(){
 
-	
-	gulp.run('clean');
-	gulp.run('copy');
-	gulp.run('concat');
-	gulp.run('watch', 'copy:html:root');
+gulp.task('build', function(){
+	isProduction = false;
+	gulp.run('copy', 'concat', 'watch', 'copy:html:root', 'watch:html:root');
 });
 
+gulp.task('build:prod', function(){
+	isProduction = true;
+	gulp.run('copy', 'concat', 'watch', 'copy:html:root', 'watch:html:root');
+});
