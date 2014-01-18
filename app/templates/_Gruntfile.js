@@ -14,12 +14,12 @@ module.exports = function (grunt) {
 	            options: {
 	                port: '9000'
 	            },
-	            command: 'python -m SimpleHTTPServer <%= shell.pythonServer.options.port %>' 
+	            command: 'python -m SimpleHTTPServer <%%= shell.pythonServer.options.port %>' 
 	        }
 	    },
 		
 		watch: {
-			js:  { files: ['build/js/_bower.js'], tasks: ['uglify'] },			
+			bower:  { files: ['build/bower_components/**/**.js'], tasks: ['bower_concat', 'uglify'] },			
 		},
 
 		uglify: {
@@ -36,18 +36,32 @@ module.exports = function (grunt) {
 		  all: {
 		    dest: 'build/js/_bower.js',
 		    include: [
-		        'modernizr',
-		        'jquery',
-		        'angular',
-		        'angular-animate',
-		        'angular-resource',
-		        'angular-route'				        
+		        "angular"<% if (resourceModule) { %>,
+			    "angular-resource"<% } if (cookiesModule) { %>,
+			    "angular-cookies"<%  } if (sanitizeModule) { %>,
+			    "angular-sanitize"<% } if (routeModule) { %>,
+			    "angular-route"<%    } if (animateModule) { %>,
+			    "angular-animate"<%  } if (ng_ui && utilsModule) { %>,
+			    "angular-utils"<%    } if (ng_ui && bootstrapModule) { %>,
+			    "angular-bootstrap"<%} if (ng_ui && uirouterModule) { %>,
+			    "angular-ui-router"<%} if (ng_ui && gridModule) { %>,
+			    "angular-ng-grid"<%  } if (jquery) { %>,
+			    "jquery"<%           } if (zepto) { %>,
+			    "zepto"<%            } if (modernizr) { %>,
+			    "modernizr"<% } %>
 		    ],
 		    dependencies: {
-		   		'modernizr': 'jquery',
-		   		'angular-animate': 'angular',
-		        'angular-resource': 'angular',
-		        'angular-route': 'angular'		        
+				<% if (modernizr) { %>
+				'modernizr': 'jquery',<%         } if (resourceModule) { %>
+				'angular-resource': 'angular'<%  } if (cookiesModule) { %>,
+				'angular-cookies': 'angular'<%   } if (sanitizeModule) { %>,
+				'angular-sanitize': 'angular'<%  } if (routeModule) { %>,
+				'angular-route': 'angular'<%     } if (animateModule) { %>,
+				'angular-animate': 'angular'<%   } if (ng_ui && utilsModule) { %>,
+				'angular-utils': 'angular'<%     } if (ng_ui && bootstrapModule) { %>,
+				'angular-bootstrap': 'angular'<% } if (ng_ui && uirouterModule) { %>,
+				'angular-ui-router': 'angular'<% } if (ng_ui && gridModule) { %>,
+				'angular-ng-grid': 'angular'<%   } %>		        
 		    },
 		    bowerOptions: {
 		      relative: true
@@ -63,7 +77,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	grunt.registerTask('python_server', [ 'shell' ]);
-	grunt.registerTask('bower', [ 'bower_concat', 'uglify']);
-	 
-
+	grunt.registerTask('bower', ['bower_concat','uglify', 'watch:bower']);
 };

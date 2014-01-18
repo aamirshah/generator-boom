@@ -2,18 +2,22 @@
   "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.2.6" <% if (resourceModule) { %>,
+    "angular": "1.2.6"<% if (resourceModule) { %>,
     "angular-resource": "1.2.6"<% } if (cookiesModule) { %>,
     "angular-cookies": "1.2.6"<%  } if (sanitizeModule) { %>,
     "angular-sanitize": "1.2.6"<% } if (routeModule) { %>,
     "angular-route": "1.2.6"<%    } if (animateModule) { %>,
-    "angular-animate": "1.2.6"<%  } if (jquery) { %>,
-    "jquery": "*"<% }  if (zepto) { %>,
-    "zepto": "*"<% } %>
+    "angular-animate": "1.2.6"<%  } if (ng_ui && utilsModule) { %>,
+    "angular-utils": "*"<%        } if (ng_ui && bootstrapModule) { %>,
+    "angular-bootstrap": "*"<%    } if (ng_ui && uirouterModule) { %>,
+    "angular-ui-router": "*"<%    } if (ng_ui && gridModule) { %>,
+    "angular-ng-grid": "*"<%      } if (jquery) { %>,
+    "jquery": "*"<%               } if (zepto) { %>,
+    "zepto": "*"<%                } if (modernizr) { %>,
+    "modernizr": "*" <% } %>
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
     "angular-scenario": "1.2.6"
   }
 }
-
