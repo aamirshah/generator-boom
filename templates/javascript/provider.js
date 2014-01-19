@@ -1,5 +1,12 @@
 
+/*================================================================
+=>                   Provider = <%= cameledName %>                =
+==================================================================*/
+
 app.provider('<%= cameledName %>', function(){	
+
+	'use strict';
+
 <% if (!options['skip']) { %>
 	this.name = 'Default';
  
@@ -20,6 +27,9 @@ app.provider('<%= cameledName %>', function(){
 
 <% if (!options['skip']) { %>
 // app.config(function(<%= cameledName %>){
-//     <%= cameledName %>.setName('Hellow World');
+//     <%= cameledName %>.setName('Hello World');
 // });
 <% } %>
+
+
+/*-----  End of Provider = <%= cameledName %>  ------*/

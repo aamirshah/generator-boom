@@ -24,7 +24,7 @@
     "gulp-watch": "~0.3.3",
     "gulp-plumber": "~0.4.1",
     "gulp-if": "0.0.3",
-    "gulp-bower": "*"
+    "jshint-stylish": "*"
   },
   "engines": {
     "node": ">=0.8.0"
