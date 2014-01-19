@@ -1,6 +1,6 @@
 
 /*================================================================
-=>                  Directive = <%= cameledName %>              =
+=>                  Directive = <%= cameledName %>
 ==================================================================*/
 
 app.directive('<%= cameledName %>', ['$rootScope', function ($rootScope) {

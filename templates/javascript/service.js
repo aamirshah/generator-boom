@@ -1,12 +1,12 @@
 
 /*================================================================
-=>                   Service = <%= cameledName %>                =
+=>                   Service = <%= cameledName %>
 ==================================================================*/
 
 app.service('<%= cameledName %>', ['$rootScope', function($rootScope){
 
 	'use strict';
-	
+
 	this.func = function() {
         return;
     };

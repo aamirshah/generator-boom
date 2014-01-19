@@ -1,6 +1,6 @@
 
 /*================================================================
-=>                  Controller = <%= classedName %>              =
+=>                  Controller = <%= classedName %>
 ==================================================================*/
 
 app.controller('<%= classedName %>Ctrl', ['$scope', function ($scope) {

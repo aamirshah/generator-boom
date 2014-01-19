@@ -1,12 +1,12 @@
 
 /*================================================================
-=>                   Factory = <%= cameledName %>                =
+=>                   Factory = <%= cameledName %>
 ==================================================================*/
 
 app.factory('<%= cameledName %>', ['<%= inject %>', function(<%= inject %>){
 
 	'use strict';
-	
+
 	// You can write some code here
 <% if (options['api']) { %>
 	return $resource("/xxx", {}, {
