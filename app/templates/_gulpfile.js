@@ -1,40 +1,27 @@
 'use strict';
 
-var gutil = require('gulp-util'),
-	gulp = require('gulp'),
-	clean = require('gulp-clean'),
-	concat = require('gulp-concat'),
-	uglify = require('gulp-uglify'),
-	rename = require('gulp-rename'),
-	jshint = require('gulp-jshint'),
-	sass = require('gulp-sass'),
-	minifyCSS = require('gulp-minify-css'),
+var gutil      = require('gulp-util'),
+	gulp       = require('gulp'),
+	clean      = require('gulp-clean'),
+	concat     = require('gulp-concat'),
+	uglify     = require('gulp-uglify'),
+	rename     = require('gulp-rename'),
+	jshint     = require('gulp-jshint'),
+	sass       = require('gulp-sass'),
+	minifyCSS  = require('gulp-minify-css'),
 	minifyHTML = require('gulp-minify-html'),
-	gzip = require("gulp-gzip"),
-	imagemin = require('gulp-imagemin'),
-	watch = require('gulp-watch'),
-	plumber = require('gulp-plumber'),
-	gulpif = require('gulp-if'),
-	jshint = require('gulp-jshint'),
-	stylish = require('jshint-stylish');
+	gzip       = require("gulp-gzip"),
+	imagemin   = require('gulp-imagemin'),
+	watch      = require('gulp-watch'),
+	plumber    = require('gulp-plumber'),
+	gulpif     = require('gulp-if'),
+	jshint     = require('gulp-jshint'),
+	stylish    = require('jshint-stylish');
 		
 	require('gulp-grunt')(gulp); 
 	
 	
 var isProduction = true;
-
-/*============================================================
-=                          GRUNT                             =
-============================================================*/
-
-	gulp.task('server', function() {
-	    gulp.run('grunt-python_server');
-	});
-
-	gulp.task('bower', function() {
-	    gulp.run('grunt-bower');
-	});
-
 
 /*============================================================
 =                          JS-HINT                          =
@@ -113,7 +100,7 @@ var isProduction = true;
 
 	gulp.task('copy', function() {
 	
-		gulp.run('copy:html', 'copy:images', 'copy:fonts');
+		gulp.run('copy:html', 'copy:images', 'copy:fonts', 'copy:html:root');
 	});
 
 	
@@ -151,7 +138,7 @@ var isProduction = true;
 
 	gulp.task('watch', function(){
 	
-		gulp.run('watch:css', 'watch:scss', 'watch:js', 'watch:html', 'watch:html:root', 'watch:images', 'watch:fonts');
+		gulp.run('watch:css', 'watch:scss', 'watch:js', 'watch:html', 'watch:html:root', 'watch:images', 'watch:fonts', 'watch:bower', 'watch:html:root');
 	});
 
 	gulp.task('watch:css', function () {
@@ -203,6 +190,12 @@ var isProduction = true;
 		});
 	});
 
+	gulp.task('watch:bower', function () {
+		
+		gulp.watch(['bower_components/*.js', 'bower_components/**/*.js'], function() {
+			gulp.run('grunt-bower');
+		});
+	});
 
 
 /*============================================================
@@ -246,13 +239,24 @@ var isProduction = true;
 =                             Start                          =
 ============================================================*/
 
+	gulp.task('server', function() {
+	    gulp.run('grunt-python_server');
+	});
 
-gulp.task('build', function(){
-	isProduction = false;
-	gulp.run('copy', 'concat', 'watch', 'copy:html:root', 'watch:html:root');
-});
+	gulp.task('bower', function() {
+	    gulp.run('grunt-bower'); // Concat & Uglify
+	});
 
-gulp.task('build:prod', function(){
-	isProduction = true;
-	gulp.run('copy', 'concat', 'watch', 'copy:html:root', 'watch:html:root');
-});
+	gulp.task('build', function(){
+		isProduction = false;
+		gulp.run('copy', 'concat', 'watch');
+	});
+
+	gulp.task('build:prod', function(){
+		isProduction = true;
+		gulp.run('copy', 'concat', 'watch');
+	});
+
+	gulp.task('default', function() {
+	    gulp.run('grunt-bower_install', 'grunt-bower', 'build');
+	});

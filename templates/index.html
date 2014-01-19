@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <title><%= scriptAppName %></title>
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="css/styles.css">
   </head>
 
   <body ng-app="<%= scriptAppName %>">
@@ -16,6 +16,8 @@
     <div ng-view></div>
     <% } %>
 
+    <script type="text/javascript" src="js/_bower.min.js"></script>
+    <script type="text/javascript" src="js/all.js"></script>
     <!-- endbuild -->
   </body>
 </html>

@@ -15,13 +15,13 @@ module.exports = function (grunt) {
 	                port: '9000'
 	            },
 	            command: 'python -m SimpleHTTPServer <%%= shell.pythonServer.options.port %>' 
+	        },
+	        
+	        bower_install: {
+	        	command: 'bower install'
 	        }
 	    },
 		
-		watch: {
-			bower:  { files: ['build/bower_components/**/**.js'], tasks: ['bower_concat', 'uglify'] },			
-		},
-
 		uglify: {
 	        files: { 
 	            src: 'build/js/_bower.js',  // source files mask
@@ -73,9 +73,9 @@ module.exports = function (grunt) {
 	// load plugins	
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-bower-concat');
-	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
-	grunt.registerTask('python_server', [ 'shell' ]);
-	grunt.registerTask('bower', ['bower_concat','uglify', 'watch:bower']);
+	grunt.registerTask('python_server', [ 'shell:pythonServer' ]);
+	grunt.registerTask('bower', ['bower_concat','uglify']);
+	grunt.registerTask('bower_install', ['shell:bower']);
 };

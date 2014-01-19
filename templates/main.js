@@ -1,10 +1,13 @@
-"use strict";
+/*================================================================
+=>                  App = <%= scriptAppName %>
+==================================================================*/
 
 var app = angular.module('<%= scriptAppName %>', [<%= angularModules %>]);
 
 <% if (ngRoute) { %>
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
-	
+	'use strict';
+
 	$routeProvider
 		.when("/home", {
 			templateUrl:"templates/home.html"
@@ -16,10 +19,22 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 	$locationProvider.hashPrefix('!');
 }]);
 <% } %>
+
+
+
+
+/*================================================================
+=>                  <%= scriptAppName %> App Run()  
+==================================================================*/
+
 app.run(['$rootScope', function($rootScope){
+	
+	'use strict';
 
 	console.log("Angular.js run() function...");
 }]);
+
+
 
 
 /* ---> Do not delete this comment (Values)<--- */
