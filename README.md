@@ -36,13 +36,18 @@ Then execute the boom command
 
 Answer few question on the command prompt and **Thats it!**
 
+To install the dependency packages
+
+```
+    npm start
+```
 
 To start the server
 
 ```sh
-    gulp server
+    gulp
 ``` 
-
+**Thats it!**
 
 
 
@@ -123,7 +128,7 @@ License
 
 The MIT License
 
-Copyright (c) 2014 Aamir Shah.
+Copyright (c) 2014 Aamir Shah (cse.aamir@gmail.com).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
