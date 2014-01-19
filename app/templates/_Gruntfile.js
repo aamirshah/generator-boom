@@ -1,21 +1,12 @@
-'use strict';
-
-var path = require('path');
-
 
 module.exports = function (grunt) {
+	
+	'use strict';
 
     grunt.initConfig({
   		pkg: grunt.file.readJSON('package.json'),
-	  
-		
+	  		
 		shell: {
-	        pythonServer: {
-	            options: {
-	                port: '9000'
-	            },
-	            command: 'python -m SimpleHTTPServer <%%= shell.pythonServer.options.port %>' 
-	        },
 	        
 	        bower_install: {
 	        	command: 'bower install'
@@ -75,7 +66,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-bower-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
-	grunt.registerTask('python_server', [ 'shell:pythonServer' ]);
 	grunt.registerTask('bower', ['bower_concat','uglify']);
 	grunt.registerTask('bower_install', ['shell:bower']);
 };
