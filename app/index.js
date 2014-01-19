@@ -318,6 +318,7 @@ Generator.prototype.app = function app() {
 Generator.prototype.projectfiles = function projectfiles() {
   this.copy('editorconfig', '.editorconfig');
   this.copy('jshintrc', '.jshintrc');
+  this.copy('_README.md', 'README.md');
 };
 
 
