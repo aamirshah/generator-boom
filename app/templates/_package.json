@@ -24,12 +24,18 @@
     "gulp-watch": "~0.3.3",
     "gulp-plumber": "~0.4.1",
     "gulp-if": "0.0.3",
-    "jshint-stylish": "*"
+    "jshint-stylish": "*",
+    "gulp-util": "*",
+    "connect": "*",
+    "open": "*",
+    "gulp-livereload": "*",
+    "tiny-lr": "*",
+    "connect-livereload": "*"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "start": "sudo npm install"
+    "start": "sudo npm install && bower install"
   }
 }

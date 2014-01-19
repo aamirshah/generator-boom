@@ -357,6 +357,6 @@ var gutil      = require('gulp-util'),
 	});
 
 	gulp.task('default', function() {
-	    gulp.run('grunt-bower_install', 'grunt-bower', 'build', 'server');
+	    gulp.run('grunt-bower', 'build', 'server');
 	    // gulp.run('build', 'server');
 	});
