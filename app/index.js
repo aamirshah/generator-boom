@@ -113,7 +113,7 @@ Generator.prototype.askForModernizr = function askFor() {
   this.prompt([{
     type: 'confirm',
     name: 'modernizr',
-    message: 'Would you like to install Modernizr ?',
+    message: 'Would you like to include Modernizr ?',
     default: false
   }], function (props) {
     this.modernizr = props.modernizr;
@@ -128,7 +128,7 @@ Generator.prototype.askForModules = function askForModules() {
   var prompts = [{
     type: 'checkbox',
     name: 'modules',
-    message: 'Which modules would you like to include?',
+    message: 'Which modules would you like to include ?',
     choices: [{
       value: 'resourceModule',
       name: 'angular-resource.js',
@@ -201,7 +201,7 @@ Generator.prototype.askForAngularUI = function askFor() {
   this.prompt([{
     type: 'confirm',
     name: 'ng_ui',
-    message: 'Would you like to install AngularUI ?',
+    message: 'Would you like to include AngularUI ?',
     default: false
   }], function (props) {
     

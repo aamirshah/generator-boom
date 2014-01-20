@@ -2,12 +2,13 @@
 /*================================================================
 =>                   Service = <%= cameledName %>
 ==================================================================*/
+/*global app*/
 
-app.service('<%= cameledName %>', ['$rootScope', function($rootScope){
+app.service('<%= cameledName %>', ['$rootScope', function ($rootScope) {
 
 	'use strict';
 
-	this.func = function() {
+	this.func = function () {
         return;
     };
 

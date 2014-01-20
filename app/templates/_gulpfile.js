@@ -6,7 +6,6 @@ var gutil      = require('gulp-util'),
 	concat     = require('gulp-concat'),
 	uglify     = require('gulp-uglify'),
 	rename     = require('gulp-rename'),
-	jshint     = require('gulp-jshint'),
 	sass       = require('gulp-sass'),
 	minifyCSS  = require('gulp-minify-css'),
 	minifyHTML = require('gulp-minify-html'),
@@ -24,7 +23,8 @@ var gutil      = require('gulp-util'),
 	refresh    = require('gulp-livereload'),
 	tinylr     = require('tiny-lr'),
 	livereload = tinylr(),
-	zip        = require('gulp-zip');
+	zip        = require('gulp-zip'),
+	fs         = require('fs');
 
 	require('gulp-grunt')(gulp); 
 	
@@ -53,6 +53,10 @@ var gutil      = require('gulp-util'),
 		scss: 'scss/'	
 	};
  
+ 	// jsHint Options.
+ 	var hintOptions = JSON.parse(fs.readFileSync(".jshintrc", "utf8"));
+
+ 	// Flag for generating production code.
 	var isProduction = true;
 
 
@@ -100,7 +104,7 @@ var gutil      = require('gulp-util'),
 
 		console.log('-------------------------------------------------- JS - HINT');
 		gulp.src([settings.src.js+'main.js', settings.src.js+'**/*.js'])
-			.pipe(jshint())
+			.pipe(jshint(hintOptions))
 			.pipe(jshint.reporter(stylish));
 	});
 

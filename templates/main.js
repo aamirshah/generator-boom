@@ -1,19 +1,20 @@
 /*================================================================
 =>                  App = <%= scriptAppName %>
 ==================================================================*/
+/*global angular*/
 
 var app = angular.module('<%= scriptAppName %>', [<%= angularModules %>]);
 
 <% if (ngRoute) { %>
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
+app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 	'use strict';
 
 	$routeProvider
-		.when("/home", {
-			templateUrl:"templates/home.html"
+		.when('/home', {
+			templateUrl: 'templates/home.html'
 		})
 		.otherwise({
-			redirectTo:'/home'
+			redirectTo: '/home'
 		});
 
 	$locationProvider.hashPrefix('!');
@@ -27,11 +28,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 =>                  <%= scriptAppName %> App Run()  
 ==================================================================*/
 
-app.run(['$rootScope', function($rootScope){
+app.run(['$rootScope', function ($rootScope) {
 	
 	'use strict';
 
-	console.log("Angular.js run() function...");
+	console.log('Angular.js run() function... $rootScope =');
 }]);
 
 

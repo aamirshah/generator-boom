@@ -2,24 +2,25 @@
 /*================================================================
 =>                   Provider = <%= cameledName %>
 ==================================================================*/
+/*global app*/
 
-app.provider('<%= cameledName %>', function(){	
+app.provider('<%= cameledName %>', function () {
 
 	'use strict';
 
 <% if (!options['skip']) { %>
 	this.name = 'Default';
  
-    this.$get = function() {
+    this.$get = function () {
 	    var self = this;
 	    return {
-	        sayHello: function() {
-	            return "Hello, " + self.name + "!"
+	        sayHello: function () {
+	            return 'Hello, ' + self.name + '!';
 	        }
-	    }
+	    };
 	};
  
-    this.setName = function(name) {
+    this.setName = function (name) {
         this.name = name;
     };
 <% } %>
