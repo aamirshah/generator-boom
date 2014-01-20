@@ -19,7 +19,7 @@ What makes it cool
  2. **Live Reload** pre-configured
  3. **Development** and **Production** code are separated
  4. **AngularUI** included (optional)
- 5. **JS-HINT** pre-configured
+ 5. **JSHint** pre-configured
  6. **Protractor** (E2E tests) pre-configured (Will come in next commit)
  7. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
  8. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
