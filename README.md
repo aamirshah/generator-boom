@@ -12,6 +12,20 @@ You can also check the [NPM Repository](https://npmjs.org/package/generator-boom
 
 ----------
 
+What makes it cool
+----------
+
+ 1. **Ultra Fast** - Uses Gulp instead of Grunt
+ 2. **Live Reload** pre-configured
+ 3. **Development** and **Production** code are separated
+ 4. **AngularUI** included (optional)
+ 5. **JS-HINT** pre-configured
+ 6. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
+ 7. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
+ 8. [Adding Routes](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md) will also create and link the css and controller in their respective folders.
+ 9. [Adding Views](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md) is also allowed
+ 10. [Adding Styles](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md) is also allowed
+ 11. Use `gulp build`for dev mode and `gulp build:prod` for production.
 
 <i class="icon-download"></i> Installation
 ---------
@@ -36,7 +50,7 @@ Then execute the boom command
 
 Answer few question on the command prompt and **Thats it!**
 
-To install the dependency packages
+To install the dependency packages (Required **only if** you need to run the `npm install` as a **super user**)
 
 ```
     npm start
@@ -46,8 +60,16 @@ To start the server
 
 ```sh
     gulp
-``` 
-**Thats it!**
+```
+
+-----------
+
+
+
+Dependency
+--------
+
+For Live Reload to work you need to install the Chrome Extension [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
 
 
 
@@ -91,7 +113,7 @@ To start the server
 <i class="icon-refresh"></i> Boom Commands
 ---------------
 
-The avilable generators are
+The avilable sub-generators are
 
 * [boom:controller](https://github.com/aamirshah/generator-boom/blob/master/controller/USAGE.md)
 * [boom:directive](https://github.com/aamirshah/generator-boom/blob/master/directive/USAGE.md)
