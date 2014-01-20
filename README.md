@@ -32,7 +32,9 @@ What makes it cool
 <i class="icon-download"></i> Installation
 ---------
 
-Install the Boom Generator first.
+First of all you need to have [Node.js](http://nodejs.org/) and Yeoman `npm install -g yo` installed.
+
+Install the Boom Generator
 
 ```sh
     npm install -g generator-boom
