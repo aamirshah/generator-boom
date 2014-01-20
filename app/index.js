@@ -303,9 +303,16 @@ Generator.prototype.app = function app() {
   this.mkdir('app/js/libs');
   this.mkdir('app/images');
   this.mkdir('app/fonts');
+  this.mkdir('app/tests');
 
   this.jsFile = this.engine(this.read('../../templates/main.js'), this);
   this.write(path.join(this.appPath, '/js/main.js'), this.jsFile);
+
+  this.homeFile = this.engine(this.read('../../templates/home.html'), this);
+  this.write(path.join(this.appPath, '/templates/home.html'), this.homeFile);
+
+  this.testFile = this.engine(this.read('../../templates/testConfig.js'), this);
+  this.write(path.join(this.appPath, '/tests/config.js'), this.testFile);
   
   this.copy('_fonts.css', path.join(this.appPath, '/css/fonts.css'));
   this.copy('_package.json', 'package.json');

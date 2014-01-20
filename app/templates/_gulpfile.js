@@ -23,7 +23,8 @@ var gutil      = require('gulp-util'),
 	open       = require('open'),
 	refresh    = require('gulp-livereload'),
 	tinylr     = require('tiny-lr'),
-	livereload = tinylr();
+	livereload = tinylr(),
+	zip        = require('gulp-zip');
 
 	require('gulp-grunt')(gulp); 
 	
@@ -49,7 +50,7 @@ var gutil      = require('gulp-util'),
 			fonts: 'build/fonts/',
 			bower: 'bower_components/'			
 		},
-		scss: 'scss/',
+		scss: 'scss/'	
 	};
  
 	var isProduction = true;
@@ -333,6 +334,30 @@ var gutil      = require('gulp-util'),
 	    gulp.src([settings.build.fonts+'*.*', settings.build.fonts+'**/*.*'], {read: false})
 	        .pipe(clean({force: true}));
 	});
+
+	gulp.task('clean:zip', function(){
+
+		console.log('-------------------------------------------------- CLEAN :Zip');
+		gulp.src(['zip/**/*', '!zip/build-*.zip'], {read: false})
+        	.pipe(clean({force: true}));
+	});
+
+
+/*============================================================
+=                             Zip                          =
+============================================================*/
+
+	gulp.task('zip', function () {
+	    gulp.src([settings.build.app+'*', settings.build.app+'**/*'])
+	        .pipe(zip('build-' + new Date() + '.zip'))
+	        .pipe(gulp.dest('./zip/'));	 
+
+	    setTimeout(function(){	    	
+	    	gulp.run('clean:zip');   
+	    }, 500); // wait for file creation
+		    
+	});
+
 
 
 /*============================================================

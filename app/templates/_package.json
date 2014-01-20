@@ -30,7 +30,9 @@
     "open": "*",
     "gulp-livereload": "*",
     "tiny-lr": "*",
-    "connect-livereload": "*"
+    "connect-livereload": "*",
+    "gulp-zip": "~0.1.2",
+    "protractor": "~0.16.1"
   },
   "engines": {
     "node": ">=0.8.0"

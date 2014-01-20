@@ -42,7 +42,7 @@ module.exports = function (grunt) {
 			    "modernizr"<% } %>
 		    ],
 		    dependencies: {
-				<% if (modernizr) { %>
+				<% if (modernizr && jquery) { %>
 				'modernizr': 'jquery',<%         } if (resourceModule) { %>
 				'angular-resource': 'angular'<%  } if (cookiesModule) { %>,
 				'angular-cookies': 'angular'<%   } if (sanitizeModule) { %>,

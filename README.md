@@ -20,12 +20,14 @@ What makes it cool
  3. **Development** and **Production** code are separated
  4. **AngularUI** included (optional)
  5. **JS-HINT** pre-configured
- 6. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
- 7. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
- 8. [Adding Routes](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md) will also create and link the css and controller in their respective folders.
- 9. [Adding Views](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md) is also allowed
- 10. [Adding Styles](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md) is also allowed
- 11. Use `gulp build`for dev mode and `gulp build:prod` for production.
+ 6. **Protractor** (E2E tests) pre-configured (Will come in next commit)
+ 7. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
+ 8. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
+ 9. [Adding Routes](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md) will also create and link the css and controller in their respective folders.
+ 10. [Adding Views](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md) is also allowed
+ 11. [Adding Styles](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md) is also allowed
+ 12. Use `gulp build`for dev mode and `gulp build:prod` for production.
+ 13. Share code with client using command `gulp zip` (Will create the .zip file of build folder)
 
 <i class="icon-download"></i> Installation
 ---------
