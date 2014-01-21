@@ -49,8 +49,7 @@ var gutil      = require('gulp-util'),
 			images: 'build/images/',
 			fonts: 'build/fonts/',
 			bower: 'bower_components/'			
-		},
-		scss: 'scss/'	
+		}
 	};
  
  	// jsHint Options.
@@ -115,7 +114,7 @@ var gutil      = require('gulp-util'),
 
 	gulp.task('concat', function(){
 	
-		gulp.run('concat:js','convert:scss', 'concat:css');
+		gulp.run('concat:js', 'concat:styles');
 	});
 
 	gulp.task('concat:js', function() {
@@ -133,20 +132,13 @@ var gutil      = require('gulp-util'),
 		gulp.run('js:hint');
 	});
 
-	
-	gulp.task('convert:scss', function () {
-		console.log('-------------------------------------------------- COVERT - scss');
-	    gulp.src(settings.src.css+'*.scss')
-	        .pipe(sass())
-	        .pipe(gulp.dest(settings.scss))
-	        .pipe(refresh(livereload));
-	});
 
 
-	gulp.task('concat:css', function() {
+	gulp.task('concat:styles', function() {
 
-		console.log('-------------------------------------------------- CONCAT :css');
-	  	gulp.src([settings.src.css+'*.css', settings.src.css+'**/*.css', settings.scss+'*.css'])
+		console.log('-------------------------------------------------- CONCAT :css & :scss');
+	  	gulp.src([settings.src.css+'*.css', settings.src.css+'**/*.css', settings.src.css+'*.scss', settings.src.css+'**/*.scss'])
+	  		.pipe(sass({includePaths: [settings.src.css]}))
 		    .pipe(concat("styles.css"))
 		    .pipe(gulp.dest(settings.build.css))
 		    .pipe(gulpif(isProduction, rename('styles.min.css')))
@@ -225,24 +217,17 @@ var gutil      = require('gulp-util'),
 	
 	gulp.task('watch', function(){
 	
-		gulp.run('watch:css', 'watch:scss', 'watch:js', 'watch:html', 'watch:html:root', 'watch:images', 'watch:fonts', 'watch:bower', 'watch:html:root');
+		gulp.run('watch:styles', 'watch:js', 'watch:html', 'watch:html:root', 'watch:images', 'watch:fonts', 'watch:bower', 'watch:html:root');
 	});
 
-	gulp.task('watch:css', function () {
+	gulp.task('watch:styles', function () {
 		console.log('path = ', settings.src.css+'*.css');
-		gulp.watch([settings.src.css+'*.css', settings.src.css+'**/*.css'], function() {	
-			console.log('-------------------------------------------------- CHANGE .CSS File');
-			gulp.run('concat:css');
+		gulp.watch([settings.src.css+'*.css', settings.src.css+'**/*.css', settings.src.css+'*.scss', settings.src.css+'**/*.scss'], function() {
+			console.log('-------------------------------------------------- CHANGE STYLE File');
+			gulp.run('concat:styles');
 		});
 	});
 
-	gulp.task('watch:scss', function () {
-	
-		gulp.watch([settings.src.css+'*.scss', settings.src.css+'**/*.scss'], function() {
-			console.log('-------------------------------------------------- CHANGE .Scss File');
-			gulp.run('convert:scss', 'concat:css');
-		});
-	});
 
 	gulp.task('watch:js', function () {
 	
@@ -387,5 +372,4 @@ var gutil      = require('gulp-util'),
 
 	gulp.task('default', function() {
 	    gulp.run('grunt-bower', 'build', 'server');
-	    // gulp.run('build', 'server');
 	});

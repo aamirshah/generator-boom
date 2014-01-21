@@ -313,6 +313,10 @@ Generator.prototype.app = function app() {
 
   this.testFile = this.engine(this.read('../../templates/testConfig.js'), this);
   this.write(path.join(this.appPath, '/tests/config.js'), this.testFile);
+
+  this.cssFile = this.engine(this.read('../../templates/main.css'), this);
+  this.write(path.join(this.appPath, '/css/main.css'), this.cssFile);
+  this.write(path.join(this.appPath, '/css/main.scss'), this.cssFile);
   
   this.copy('_fonts.css', path.join(this.appPath, '/css/fonts.css'));
   this.copy('_package.json', 'package.json');
