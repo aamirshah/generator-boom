@@ -74,7 +74,7 @@ Generator.prototype.welcome = function welcome() {
 
   // welcome message
   if (!this.options['skip-welcome-message']) {
-    // console.log(this.yeoman);
+    
     console.log('Welcome to the Boom Angular.js WebApp Generator.\n');
     // have Yeoman greet the user.
     console.log(this.yeoman);
@@ -89,8 +89,7 @@ Generator.prototype.askForLib = function askFor() {
     message: "Which library would you like to add :",
     choices: ["none", "jQuery", "zepto"]
   }], function (props) {
-    
-    console.log('props', props.which);
+  
 
     if(props.which === 'jQuery') {
       this.jquery = true;
@@ -206,8 +205,7 @@ Generator.prototype.askForAngularUI = function askFor() {
   }], function (props) {
     
     this.ng_ui = props.ng_ui;
-    console.log('this.ng_ui = ', this.ng_ui);
-
+  
     if (this.ng_ui) {      
       this.callUIModule = true;
     } 
@@ -310,6 +308,9 @@ Generator.prototype.app = function app() {
   this.jsFile = this.engine(this.read('../../templates/main.js'), this);
   this.write(path.join(this.appPath, '/js/main.js'), this.jsFile);
 
+  this.scssFile = this.engine(this.read('../../templates/application.scss'), this);
+  this.write(path.join(this.appPath, '/css/application.scss'), this.scssFile);
+
   this.homeFile = this.engine(this.read('../../templates/home.html'), this);
   this.write(path.join(this.appPath, '/templates/home.html'), this.homeFile);
 
@@ -324,7 +325,7 @@ Generator.prototype.app = function app() {
 
   this.cssFile = this.engine(this.read('../../templates/main.css'), this);
   this.write(path.join(this.appPath, '/css/main.css'), this.cssFile);
-  this.write(path.join(this.appPath, '/css/main.scss'), this.cssFile);
+  
   
   this.copy('_fonts.css', path.join(this.appPath, '/css/fonts.css'));
   this.copy('_package.json', 'package.json');

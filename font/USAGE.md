@@ -21,7 +21,7 @@ This will add:
 		font-family: 'arial'; 
 		src: url('../fonts/arial/arial.eot'); /* IE9 Compat Modes */ 
 		src: local('☺'), 
-		src: url('../fonts/arial/arial.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ 
+			url('../fonts/arial/arial.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ 
 			url('../fonts/arial/arial.woff') format('woff'), /* Modern Browsers */ 
 			url('../fonts/arial/arial.ttf')  format('truetype'), /* Safari, Android, iOS */ 
 			url('../fonts/arial/arial.svg#svgFontName') format('svg'); /* Legacy iOS */ 
