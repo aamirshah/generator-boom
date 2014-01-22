@@ -29,7 +29,7 @@ var MywebGenerator = module.exports = function MywebGenerator() {
     try {
       this.env.options.testPath = require(path.join(process.cwd(), 'bower.json')).testPath;
     } catch (e) {}
-    this.env.options.testPath = this.env.options.testPath || 'test/spec';
+    this.env.options.testPath = this.env.options.testPath || 'tests/';
   }
 
   this.env.options.coffee = this.options.coffee;
@@ -117,5 +117,15 @@ MywebGenerator.prototype.generateSourceAndTest = function (appTemplate, testTemp
   //   this.testTemplate(testTemplate, path.join(targetDirectory, this.name));
   if (addIndex) {
     this.addScriptToIndex(path.join(targetDirectory, this.name));
+  }
+};
+
+
+MywebGenerator.prototype.generateTestFile = function (appTemplate, targetDirectory, option) {
+  
+  this.testTemplate(appTemplate, path.join(targetDirectory, this.name));
+  
+  if (option) {
+   
   }
 };

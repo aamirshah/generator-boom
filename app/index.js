@@ -303,7 +303,9 @@ Generator.prototype.app = function app() {
   this.mkdir('app/js/libs');
   this.mkdir('app/images');
   this.mkdir('app/fonts');
-  this.mkdir('app/tests');
+  
+  this.mkdir('tests/e2e/');
+  this.mkdir('tests/api/');
 
   this.jsFile = this.engine(this.read('../../templates/main.js'), this);
   this.write(path.join(this.appPath, '/js/main.js'), this.jsFile);
@@ -311,8 +313,14 @@ Generator.prototype.app = function app() {
   this.homeFile = this.engine(this.read('../../templates/home.html'), this);
   this.write(path.join(this.appPath, '/templates/home.html'), this.homeFile);
 
-  this.testFile = this.engine(this.read('../../templates/testConfig.js'), this);
-  this.write(path.join(this.appPath, '/tests/config.js'), this.testFile);
+  this.testConfigAPIFile = this.engine(this.read('../../templates/testConfigAPI.js'), this);
+  this.write('./tests/all_api.js', this.testConfigAPIFile);
+
+  this.testConfigE2EFile = this.engine(this.read('../../templates/testConfigE2E.js'), this);
+  this.write('./tests/all_e2e.js', this.testConfigE2EFile);
+
+  this.testFile = this.engine(this.read('../../templates/sampleTest.js'), this);
+  this.write('./tests/e2e/sample_test.js', this.testFile);
 
   this.cssFile = this.engine(this.read('../../templates/main.css'), this);
   this.write(path.join(this.appPath, '/css/main.css'), this.cssFile);

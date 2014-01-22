@@ -32,7 +32,8 @@
     "tiny-lr": "*",
     "connect-livereload": "*",
     "gulp-zip": "~0.1.2",
-    "protractor": "~0.16.1"
+    "protractor": "~0.16.1",
+    "supertest": "~0.9.0"
   },
   "engines": {
     "node": ">=0.8.0"
