@@ -20,7 +20,7 @@ What makes it cool
  3. **Development** and **Production** code are separated
  4. **AngularUI** included (optional)
  5. **JSHint** pre-configured
- 6. **Protractor** (E2E tests) pre-configured (Will come in next commit)
+ 6. **Protractor** (E2E tests) pre-configured
  7. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
  8. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
  9. [Adding Routes](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md) will also create and link the css and controller in their respective folders.
@@ -117,7 +117,7 @@ For Live Reload to work you need to install the Chrome Extension [LiveReload](ht
 <i class="icon-refresh"></i> Boom Commands
 ---------------
 
-The avilable sub-generators are
+The available sub-generators are
 
 * [boom:controller](https://github.com/aamirshah/generator-boom/blob/master/controller/USAGE.md)
 * [boom:directive](https://github.com/aamirshah/generator-boom/blob/master/directive/USAGE.md)
@@ -131,6 +131,7 @@ The avilable sub-generators are
 * [boom:font](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md)
 * [boom:style](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md)
 * [boom:view](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md)
+* [boom:test](https://github.com/aamirshah/generator-boom/blob/master/test/USAGE.md)
 
 
 <i class="icon-pencil"></i> Special Thanks

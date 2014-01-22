@@ -4,7 +4,7 @@ Installing Protractor
  1. Download chromedriver - http://chromedriver.storage.googleapis.com/index.html
  2. Install protractor as a global npm module `npm install -g protractor`
  3. Move the chrome driver to your PATH `mv chromedriver /usr/local/bin/`
- 4. Run the tests `protractor tests/e2e/sampleTest.js`
+ 4. Run the tests `protractor tests/e2e/all_e2e.js`
 
 
 Tests
@@ -40,7 +40,7 @@ This will create
     tests/api/test_name.js
 ```
 
-To run all the E2e tests use 
+To run all the E2E tests use 
 
 ```
     protractor tests/all_e2e.js
