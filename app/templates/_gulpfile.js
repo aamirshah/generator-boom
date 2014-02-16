@@ -24,7 +24,8 @@ var gutil      = require('gulp-util'),
 	tinylr     = require('tiny-lr'),
 	livereload = tinylr(),
 	zip        = require('gulp-zip'),
-	fs         = require('fs');
+	fs         = require('fs'),
+	browserSync = require('browser-sync');
 
 	require('gulp-grunt')(gulp); 
 	
@@ -54,10 +55,10 @@ var gutil      = require('gulp-util'),
 	};
  
  	// jsHint Options.
- 	var hintOptions = JSON.parse(fs.readFileSync(".jshintrc", "utf8"));
+ 	var hintOptions = JSON.parse(fs.readFileSync('.jshintrc', 'utf8'));
 
  	// Flag for generating production code.
-	var isProduction = true;
+	var isProduction = false;
 
 
 /*============================================================
@@ -103,7 +104,7 @@ var gutil      = require('gulp-util'),
 	gulp.task('js:hint', function() {
 
 		console.log('-------------------------------------------------- JS - HINT');
-		gulp.src([settings.src.js+'main.js', settings.src.js+'**/*.js'])
+		gulp.src([settings.src.js+'main.js', '!'+settings.src.js+'libs/*.js', settings.src.js+'**/*.js'])
 			.pipe(jshint(hintOptions))
 			.pipe(jshint.reporter(stylish));
 	});
@@ -115,19 +116,17 @@ var gutil      = require('gulp-util'),
 
 	gulp.task('concat', function(){
 	
-		gulp.run('concat:js','convert:scss', 'concat:css');
+		gulp.run('concat:js', 'concat:css');
 	});
 
 	gulp.task('concat:js', function() {
 	
 		console.log('-------------------------------------------------- CONCAT :js');
-	  	gulp.src([settings.src.js+'libs/*.js', settings.src.js+'main.js', settings.src.js+'**/*.js'])
+	  	gulp.src([settings.src.js+'libs/*.js', settings.src.js+'main.js', settings.src.js+'*.js', settings.src.js+'**/*.js'])
 		    .pipe(concat("all.js"))
-		    .pipe(gulp.dest('./build/js/'))
-		    .pipe(gulpif(isProduction, rename('all.min.js')))
+		    // .pipe(gulpif(isProduction, rename('all.min.js')))
 		    .pipe(gulpif(isProduction, uglify()))
-		    .pipe(gulpif(isProduction, gzip()))
-		    .pipe(gulpif(isProduction, gulp.dest(settings.build.js)))
+		    .pipe(gulp.dest(settings.build.js))		    
 		    .pipe(refresh(livereload));        
 
 		gulp.run('js:hint');
@@ -136,22 +135,21 @@ var gutil      = require('gulp-util'),
 	gulp.task('convert:scss', function () {
        console.log('-------------------------------------------------- COVERT - scss');
        
-        gulp.src(settings.src.css+'application.scss')
+        var stream = gulp.src(settings.src.css+'application.scss')
            .pipe(sass({includePaths: [settings.src.css]}))
            .pipe(gulp.dest(settings.scss))
            .pipe(refresh(livereload));
+        return stream;           
     });
 
-	gulp.task('concat:css', function() {
+	gulp.task('concat:css', ['convert:scss'], function() {
 
-		console.log('-------------------------------------------------- CONCAT :css ');
-	  	gulp.src([settings.src.css+'*.css', settings.src.css+'**/*.css', settings.scss+'application.css'])	  		
-		    .pipe(concat("styles.css"))
-		    .pipe(gulp.dest(settings.build.css))
-		    .pipe(gulpif(isProduction, rename('styles.min.css')))
+		console.log('-------------------------------------------------- CONCAT :css ');	  		  		
+	  	gulp.src([settings.src.css+'fonts.css', settings.scss+'application.css', settings.src.css+'*.css'])	  		
+		    .pipe(concat("styles.css"))		    
+		    // .pipe(gulpif(isProduction, rename('styles.min.css')))
 		    .pipe(gulpif(isProduction, minifyCSS({keepSpecialComments: '*'})))
-		    .pipe(gulpif(isProduction, gzip()))
-		    .pipe(gulpif(isProduction, gulp.dest(settings.build.css)))
+		    .pipe(gulp.dest(settings.build.css))
 		    .pipe(refresh(livereload));
 	});
 
@@ -166,7 +164,7 @@ var gutil      = require('gulp-util'),
 
 
 	gulp.task('image:min', function () {
-	    gulp.src(settings.src.images+'**')
+	    gulp.src(settings.src.images+'*.*')
 	        .pipe(imagemin())
 	        .pipe(gulp.dest(settings.build.images))
 	        .pipe(refresh(livereload));
@@ -240,11 +238,8 @@ var gutil      = require('gulp-util'),
    
         gulp.watch([settings.src.css+'*.scss', settings.src.css+'**/*.scss'], function() {
             console.log('-------------------------------------------------- CHANGE .Scss File');
-            gulp.run('convert:scss');
-
-            setTimeout(function(){
-            	gulp.run('concat:css');
-            }, 500);
+	        
+	        gulp.run('concat:css');            
         });
     });
 
@@ -392,3 +387,23 @@ var gutil      = require('gulp-util'),
 	gulp.task('default', function() {
 	    gulp.run('grunt-bower', 'build', 'server');
 	});
+
+	gulp.task('prod', function() {
+	    gulp.run('grunt-bower', 'build:prod', 'server');
+	});
+
+
+/*============================================================
+=                       Browser Sync                         =
+============================================================*/
+
+	gulp.task('sync', function() {
+	    browserSync.init([settings.build.app + 'index.html', settings.build + 'templates/*.html', settings.build.css + '*.css', settings.build.js + '*.js'], {
+	         proxy: {
+	            host: '127.0.0.1',
+	            port: settings.serverPort
+	        }
+	    });
+	});
+
+

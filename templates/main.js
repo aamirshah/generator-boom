@@ -1,3 +1,4 @@
+
 /*================================================================
 =>                  App = <%= scriptAppName %>
 ==================================================================*/
@@ -6,7 +7,7 @@
 var app = angular.module('<%= scriptAppName %>', [<%= angularModules %>]);
 
 <% if (ngRoute) { %>
-app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
 	'use strict';
 
 	$routeProvider
@@ -18,11 +19,18 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
 		});
 
 	$locationProvider.hashPrefix('!');
+
+	// This is required for Browser Sync to work poperly
+	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+}]);
+<% } else {%>
+app.config(['$httpProvider', function ($httpProvider) {
+	'use strict';
+
+	// This is required for Browser Sync to work poperly
+	$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }]);
 <% } %>
-
-
-
 
 /*================================================================
 =>                  <%= scriptAppName %> App Run()  
@@ -38,6 +46,6 @@ app.run(['$rootScope', function ($rootScope) {
 
 
 
-/* ---> Do not delete this comment (Values)<--- */
+/* ---> Do not delete this comment (Values) <--- */
 
-/* ---> Do not delete this comment (Constants)<--- */
+/* ---> Do not delete this comment (Constants) <--- */

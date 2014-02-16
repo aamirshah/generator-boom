@@ -46,7 +46,7 @@ Generator.prototype.createConstant = function createViewFiles() {
       this.env.options.appPath,
       'js/main.js'
     ),
-    needle: '/* ---> Do not delete this comment (Values)<--- */',
+    needle: '/* ---> Do not delete this comment (Values) <--- */',
     splicable: [
       "app.value('"+this.name+"', "+this.constant_value+");"
     ]

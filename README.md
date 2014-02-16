@@ -3,12 +3,11 @@ Boom Angular.js Generator!
 
 ---------------
 
-This project is a Yeoman Generator, using which we can speed up our web app development. The command name is **$ yo boom**. Boom because its indeed a BOOM.
+This project is a Yeoman Generator, using which we can speed up our WebApp development. The command name is **$ yo boom**. Boom because its indeed a BOOM.
 
 You can also check the [NPM Repository](https://npmjs.org/package/generator-boom) 
 
 
->Lets quick walk through the **boom** commands.And understand how quickly we can <i class="icon-cog"></i> `Setup` the entire project with a `boom`.
 
 ----------
 
@@ -17,17 +16,18 @@ What makes it cool
 
  1. **Ultra Fast** - Uses Gulp instead of Grunt
  2. **Live Reload** pre-configured
- 3. **Development** and **Production** code are separated
- 4. **AngularUI** included (optional)
- 5. **JSHint** pre-configured
- 6. **Protractor** (E2E tests) pre-configured
- 7. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
- 8. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
- 9. [Adding Routes](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md) will also create and link the css and controller in their respective folders.
- 10. [Adding Views](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md) is also allowed
- 11. [Adding Styles](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md) is also allowed
- 12. Use `gulp build`for dev mode and `gulp build:prod` for production.
- 13. Share code with client using command `gulp zip` (Will create the .zip file of build folder)
+ 3. **BrowserSync** pre-configured
+ 4. **Development** and **Production** code are separated
+ 5. **AngularUI** included (optional)
+ 6. **JSHint** pre-configured
+ 7. **Protractor** (E2E tests) pre-configured
+ 8. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
+ 9. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
+ 10. [Adding Routes](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md) will also create and link the css and controller in their respective folders.
+ 11. [Adding Views](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md) is also allowed
+ 12. [Adding Styles](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md) is also allowed
+ 13. Use `gulp build`for dev mode and `gulp build:prod` for production.
+ 14. Share code with client using command `gulp zip` (Will create the .zip file of build folder)
 
 <i class="icon-download"></i> Installation
 ---------
@@ -69,29 +69,12 @@ To start the server
 -----------
 
 
-
-Dependency
---------
-
-For Live Reload to work you need to install the Chrome Extension [LiveReload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
-
-
-
-----------
-
-
-> **NOTE:**
-> 
-> - You can easily get rid of any code/library you installed
-> - You can easily add/remove libraries/modules in future
-
-----------
-
 <i class="icon-file"></i> App Structure
 ---------------
 ```
  - app/
     |- css/
+        |- application.scss
         |- fonts.css
     |- fonts/
     |- images/
@@ -116,8 +99,9 @@ For Live Reload to work you need to install the Chrome Extension [LiveReload](ht
 
 <i class="icon-refresh"></i> Boom Commands
 ---------------
+>Lets quick walk through the **boom** commands.And understand how quickly we can <i class="icon-cog"></i> `Setup` the entire project with a `boom`.
 
-The available sub-generators are
+The avilable sub-generators are
 
 * [boom:controller](https://github.com/aamirshah/generator-boom/blob/master/controller/USAGE.md)
 * [boom:directive](https://github.com/aamirshah/generator-boom/blob/master/directive/USAGE.md)
@@ -146,6 +130,7 @@ I would like to thank following for creating awesome stuff
 * [jQuery](http://jquery.com/) - DOM Manipulation Library
 * [Yeoman](http://yeoman.io/) - Worlflow for modern WebApps
 * [Generator](https://github.com/yeoman/generator-angular) - Yeoman Angular Generator
+* [BrowserSync](https://github.com/shakyShane/browser-sync) - Keep multiple browsers & devices in sync when building websites
 
 -------------------
 

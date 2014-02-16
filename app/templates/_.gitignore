@@ -5,3 +5,6 @@ build/
 npm-debug.log
 zip/
 scss/
+bower_components/
+.project
+.gitignore

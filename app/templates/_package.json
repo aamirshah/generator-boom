@@ -33,12 +33,14 @@
     "connect-livereload": "*",
     "gulp-zip": "~0.1.2",
     "protractor": "~0.16.1",
-    "supertest": "~0.9.0"
+    "supertest": "~0.9.0",
+    "browser-sync": "~0.5.7"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
-    "start": "sudo npm install && bower install"
+    "start": "sudo npm install && bower install",
+    "deploy": "rsync -zvr --delete ./build USER_NAME@IP-Addr:/PATH"
   }
 }
