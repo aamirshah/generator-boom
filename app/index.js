@@ -305,8 +305,8 @@ Generator.prototype.app = function app() {
   this.mkdir('tests/e2e/');
   this.mkdir('tests/api/');
 
-  this.jsFile = this.engine(this.read('../../templates/main.js'), this);
-  this.write(path.join(this.appPath, '/js/main.js'), this.jsFile);
+  this.jsFile = this.engine(this.read('../../templates/app.js'), this);
+  this.write(path.join(this.appPath, '/js/app.js'), this.jsFile);
 
   this.scssFile = this.engine(this.read('../../templates/application.scss'), this);
   this.write(path.join(this.appPath, '/css/application.scss'), this.scssFile);

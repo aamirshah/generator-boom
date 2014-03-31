@@ -40,7 +40,7 @@ app.run(['$rootScope', function ($rootScope) {
 	
 	'use strict';
 
-	console.log('Angular.js run() function... $rootScope =');
+	console.log('Angular.js run() function...');
 }]);
 
 
