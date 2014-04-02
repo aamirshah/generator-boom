@@ -33,7 +33,7 @@ module.exports = function (grunt) {
 			    "angular-sanitize"<% } if (routeModule) { %>,
 			    "angular-route"<%    } if (animateModule) { %>,
 			    "angular-animate"<%  } if (ng_ui && utilsModule) { %>,
-			    "angular-utils"<%    } if (ng_ui && bootstrapModule) { %>,
+			    "angular-ui-utils"<%    } if (ng_ui && bootstrapModule) { %>,
 			    "angular-bootstrap"<%} if (ng_ui && uirouterModule) { %>,
 			    "angular-ui-router"<%} if (ng_ui && gridModule) { %>,
 			    "angular-ng-grid"<%  } if (jquery) { %>,
@@ -49,7 +49,7 @@ module.exports = function (grunt) {
 				'angular-sanitize': 'angular'<%  } if (routeModule) { %>,
 				'angular-route': 'angular'<%     } if (animateModule) { %>,
 				'angular-animate': 'angular'<%   } if (ng_ui && utilsModule) { %>,
-				'angular-utils': 'angular'<%     } if (ng_ui && bootstrapModule) { %>,
+				'angular-ui-utils': 'angular'<%  } if (ng_ui && bootstrapModule) { %>,
 				'angular-bootstrap': 'angular'<% } if (ng_ui && uirouterModule) { %>,
 				'angular-ui-router': 'angular'<% } if (ng_ui && gridModule) { %>,
 				'angular-ng-grid': 'angular'<%   } %>		        

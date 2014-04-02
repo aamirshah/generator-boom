@@ -229,7 +229,7 @@ Generator.prototype.askForUI = function() {
     message: 'Which AngularUI modules would you like to include?',
     choices: [{
       value: 'utilsModule',
-      name: 'angular-utils.js',
+      name: 'angular-ui-utils.js',
       checked: false
     }, {
       value: 'bootstrapModule',
@@ -256,7 +256,7 @@ Generator.prototype.askForUI = function() {
     var angMods = [];
 
     if (this.utilsModule) {
-      angMods.push("'ui.router'");
+      angMods.push("'ui.utils'");
     }
 
     if (this.bootstrapModule) {
