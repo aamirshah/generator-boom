@@ -44,7 +44,7 @@
   },
   "scripts": {
     "preinstall": "npm install",
-    "postinstall": "./node_modules/bower/bin/bower install",
+    "postinstall": "bower install",
     "start": "gulp",
     "deploy": "rsync -zvr --delete ./build USER_NAME@IP-Addr:/PATH"
   }

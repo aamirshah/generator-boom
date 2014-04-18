@@ -54,17 +54,29 @@ Then execute the boom command
 
 Answer few question on the command prompt and **Thats it!**
 
+---
+
 To install the dependency packages (Required **only if** you need to run the `npm install` as a **super user**)
 
+1. You first need to install all the node modules required by boom.
 ```
-    npm start
+    npm run-script preinstall
 ```
+Or else you can directly run `npm install`
 
-To start the server
+2. After that you need to download all the libraries using bower.
+```
+    npm run-script postinstall
+```
+Or else you can directly run `bower install`
+
+---
+Finally to start the server
 
 ```sh
     gulp
 ```
+Or else you can run `npm start`
 
 -----------
 
@@ -86,7 +98,7 @@ To start the server
         |- libs/
         |- providers/
         |- services/
-        |- main.js
+        |- app.js
     |- templates/
     |- index.html
     |- bower.json
