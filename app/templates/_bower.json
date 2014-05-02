@@ -19,5 +19,18 @@
   "devDependencies": {
     "angular-mocks": "1.2.6",
     "angular-scenario": "1.2.6"
+  },
+  "overrides": {
+    <% if (modernizr && jquery) { %>
+    "modernizr": { "dependencies": "jquery" },<%         } if (resourceModule) { %>
+    "angular-resource": { "dependencies": "angular" }<%  } if (cookiesModule) { %>,
+    "angular-cookies": { "dependencies": "angular" }<%   } if (sanitizeModule) { %>,
+    "angular-sanitize": { "dependencies": "angular" }<%  } if (routeModule) { %>,
+    "angular-route": { "dependencies": "angular" }<%     } if (animateModule) { %>,
+    "angular-animate": { "dependencies": "angular" }<%   } if (ng_ui && utilsModule) { %>,
+    "angular-ui-utils": { "dependencies": "angular" }<%  } if (ng_ui && bootstrapModule) { %>,
+    "angular-bootstrap": { "dependencies": "angular" }<% } if (ng_ui && uirouterModule) { %>,
+    "angular-ui-router": { "dependencies": "angular" }<% } if (ng_ui && gridModule) { %>,
+    "angular-ng-grid": { "dependencies": "angular" }<%   } %>
   }
 }

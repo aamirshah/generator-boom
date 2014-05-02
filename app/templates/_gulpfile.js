@@ -1,37 +1,36 @@
 'use strict';
 
-var gutil      = require('gulp-util'),
-	gulp       = require('gulp'),
-	clean      = require('gulp-clean'),
-	concat     = require('gulp-concat'),
-	uglify     = require('gulp-uglify'),
-	rename     = require('gulp-rename'),
-	sass       = require('gulp-sass'),
-	minifyCSS  = require('gulp-minify-css'),
-	minifyHTML = require('gulp-minify-html'),
-	gzip       = require("gulp-gzip"),
-	imagemin   = require('gulp-imagemin'),
-	watch      = require('gulp-watch'),
-	plumber    = require('gulp-plumber'),
-	gulpif     = require('gulp-if'),
-	jshint     = require('gulp-jshint'),
-	stylish    = require('jshint-stylish'),
-	path       = require('path'),
-	connect    = require('connect'),
-	http       = require('http'),
-	open       = require('open'),
-	refresh    = require('gulp-livereload'),
-	tinylr     = require('tiny-lr'),
-	livereload = tinylr(),
-	zip        = require('gulp-zip'),
-	fs         = require('fs'),
-	chalk      = require('chalk'),
-	args       = require('yargs').argv,
-	browserSync = require('browser-sync'),
-	runSequence = require('run-sequence');
-
-	require('gulp-grunt')(gulp); 
-	
+var gutil      		= require('gulp-util'),
+	gulp       		= require('gulp'),
+	clean      		= require('gulp-clean'),
+	concat     		= require('gulp-concat'),
+	uglify     		= require('gulp-uglify'),
+	rename     		= require('gulp-rename'),
+	sass       		= require('gulp-sass'),
+	minifyCSS  		= require('gulp-minify-css'),
+	minifyHTML 		= require('gulp-minify-html'),
+	gzip       		= require("gulp-gzip"),
+	imagemin   		= require('gulp-imagemin'),
+	watch      		= require('gulp-watch'),
+	plumber    		= require('gulp-plumber'),
+	gulpif     		= require('gulp-if'),
+	jshint     		= require('gulp-jshint'),
+	stylish    		= require('jshint-stylish'),
+	path       		= require('path'),
+	connect    		= require('connect'),
+	http       		= require('http'),
+	open       		= require('open'),
+	refresh    		= require('gulp-livereload'),
+	tinylr     		= require('tiny-lr'),
+	livereload 		= tinylr(),
+	zip        		= require('gulp-zip'),
+	fs         		= require('fs'),
+	chalk      		= require('chalk'),
+	args       		= require('yargs').argv,
+	browserSync 	= require('browser-sync'),
+	runSequence 	= require('run-sequence'),
+	gulpFilter 		= require('gulp-filter'),
+	gulpBowerFiles 	= require('gulp-bower-files');
 
 	var	settings = {
 		livereloadPort: 35729,
@@ -116,7 +115,25 @@ var gutil      = require('gulp-util'),
 =                          Concat                           =
 ============================================================*/
 
-	gulp.task('concat', ['concat:js', 'concat:css']);
+	gulp.task('concat', ['concat:lib', 'concat:js', 'concat:css']);
+
+	gulp.task('concat:lib', function() {
+		console.log('-------------------------------------------------- CONCAT :lib');
+		var jsFilter = gulpFilter('**/*.js'),
+			cssFilter = gulpFilter('**/*.css');
+
+		gulpBowerFiles()
+			.pipe(jsFilter)
+			.pipe(concat("_bower.js"))
+			.pipe(gulpif(isProduction, uglify()))
+			.pipe(gulp.dest(settings.build.js))
+			.pipe(jsFilter.restore())
+			.pipe(cssFilter)
+			.pipe(concat("_bower.css"))
+			.pipe(gulp.dest(settings.build.css))
+			.pipe(cssFilter.restore())
+			.pipe(refresh(livereload));
+	});
 
 	gulp.task('concat:js', ['js:hint'], function () {
 	
@@ -237,7 +254,7 @@ var gutil      = require('gulp-util'),
 
 		var fontFiles  = gulp.watch([settings.src.fonts + '*.*',  settings.src.fonts + '**/*.*'],  ['copy:fonts']);
 
-		var libFiles   = gulp.watch([settings.src.bower + '*.js', settings.src.bower + '**/*.js'], ['grunt-bower']);
+		var libFiles   = gulp.watch([settings.src.bower + '*.js', settings.src.bower + '**/*.js', 'bower.json'], ['concat:lib']);
 
 		var templateFiles = gulp.watch([settings.src.templates + '*.html', settings.src.templates + '**/*.html'], ['copy:html']);
 
@@ -334,10 +351,6 @@ var gutil      = require('gulp-util'),
 ============================================================*/
 
 
-	gulp.task('bower', ['grunt-bower'], function() {
-	    console.log('Executed Grunts Bower Concat Module');
-	});
-
 	gulp.task('build', function(){
 		console.log(chalk.blue('-------------------------------------------------- BUILD - Development Mode'));
 		runSequence('copy', 'concat', 'watch');
@@ -349,10 +362,10 @@ var gutil      = require('gulp-util'),
 		runSequence('copy', 'concat', 'watch');
 	});
 
-	gulp.task('default', ['grunt-bower', 'build', 'server']);
+	gulp.task('default', [ 'build', 'server']);
 
 	// Just in case you are too lazy to type: $ gulp --type production
-	gulp.task('prod', ['grunt-bower', 'build:prod', 'server']);
+	gulp.task('prod', ['build:prod', 'server']);
 
 
 /*============================================================

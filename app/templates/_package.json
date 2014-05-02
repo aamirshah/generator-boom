@@ -7,16 +7,14 @@
     "chalk": "^0.4.0",
     "connect": "*",
     "connect-livereload": "*",
-    "grunt": "~0.4.2",
-    "grunt-bower-concat": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
     "grunt-shell": "*",
     "gulp": "~3.5.0",
     "gulp-clean": "*",
     "gulp-concat": "~2.1.7",
     "gulp-grunt": "~0.4.0",
     "gulp-gzip": "0.0.3",
+	"gulp-bower-files": "^0.2.2",
+	"gulp-filter": "^0.4.1",
     "gulp-if": "0.0.3",
     "gulp-imagemin": "~0.1.4",
     "gulp-jshint": "~1.3.4",
@@ -43,7 +41,6 @@
     "node": ">=0.8.0"
   },
   "scripts": {
-    "preinstall": "npm install",
     "postinstall": "bower install",
     "start": "gulp",
     "deploy": "rsync -zvr --delete ./build USER_NAME@IP-Addr:/PATH"
