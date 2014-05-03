@@ -122,7 +122,7 @@ gulp.task('concat:bower', function() {
 	console.log('-------------------------------------------------- CONCAT :bower');
 	var jsFilter = gulpFilter('**/*.js'),
 		cssFilter = gulpFilter('**/*.css'),
-		restFilter = gulpFilter(['!**/*.js', '!**/*.css']);
+		assetsFilter = gulpFilter(['!**/*.js', '!**/*.css', '!**/*.scss']);
 
 	gulpBowerFiles()
 		.pipe(jsFilter)
@@ -131,6 +131,7 @@ gulp.task('concat:bower', function() {
 		.pipe(gulp.dest(settings.build.bower))
 		.pipe(jsFilter.restore())
 		.pipe(cssFilter)
+		.pipe(sass())
 		.pipe(map(function(file, callback) {
 			var relativePath = path.dirname(path.relative(path.resolve(settings.src.bower), file.path));
 
@@ -154,9 +155,9 @@ gulp.task('concat:bower', function() {
 		.pipe(concat("_bower.css"))
 		.pipe(gulp.dest(settings.build.bower))
 		.pipe(cssFilter.restore())
-		.pipe(restFilter)
+		.pipe(assetsFilter)
 		.pipe(gulp.dest(settings.build.bower))
-		.pipe(restFilter.restore())
+		.pipe(assetsFilter.restore())
 		.pipe(refresh(livereload));
 });
 
