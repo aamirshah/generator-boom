@@ -30,46 +30,47 @@ var gutil      		= require('gulp-util'),
 	browserSync 	= require('browser-sync'),
 	runSequence 	= require('run-sequence'),
 	gulpFilter 		= require('gulp-filter'),
-	gulpBowerFiles 	= require('gulp-bower-files');
+	gulpBowerFiles 	= require('gulp-bower-files'),
+	map 			= require('map-stream');
 
-	var	settings = {
-		livereloadPort: 35729,
-		serverPort: 9000,
-		src: {
-			app: 'app/',
-			css: 'app/css/',			
-			js: 'app/js/',				
-			templates: 'app/templates/',				
-			images: 'app/images/',
-			fonts: 'app/fonts/',
-			bower: 'bower_components/'			
-		},
-		build: {
-			app: 'build/',
-			css: 'build/css/',
-			js: 'build/js/',				
-			templates: 'build/templates/',				
-			images: 'build/images/',
-			fonts: 'build/fonts/',
-			bower: 'bower_components/'			
-		},
-		scss: 'scss/'  
-	};
- 
- 	// jsHint Options.
- 	var hintOptions = JSON.parse(fs.readFileSync('.jshintrc', 'utf8'));
+var	settings = {
+	livereloadPort: 35729,
+	serverPort: 9000,
+	src: {
+		app: 'app/',
+		css: 'app/css/',
+		js: 'app/js/',
+		templates: 'app/templates/',
+		images: 'app/images/',
+		fonts: 'app/fonts/',
+		bower: 'bower_components/'
+	},
+	build: {
+		app: 'build/',
+		css: 'build/css/',
+		js: 'build/js/',
+		templates: 'build/templates/',
+		images: 'build/images/',
+		fonts: 'build/fonts/',
+		bower: 'build/bower_components/'
+	},
+	scss: 'scss/'
+};
 
- 	// Flag for generating production code.
-	var isProduction = args.type === 'production';
+// jsHint Options.
+var hintOptions = JSON.parse(fs.readFileSync('.jshintrc', 'utf8'));
+
+// Flag for generating production code.
+var isProduction = args.type === 'production';
 
 
 /*============================================================
-=                          Server (Live - Reload)            =
-============================================================*/
+ =                          Server (Live - Reload)            =
+ ============================================================*/
 
-	gulp.task('local:server', function () {
-	
-		var middleware = [
+gulp.task('local:server', function () {
+
+	var middleware = [
 			require('connect-livereload')({ port: settings.livereloadPort }),
 			connect.static(settings.build.app),
 			connect.directory(settings.build.app)
@@ -77,308 +78,338 @@ var gutil      		= require('gulp-util'),
 
 		app = connect.apply(null, middleware),
 		server = http.createServer(app);
-		server
-			.listen(settings.serverPort)
-			.on('listening', function() {
-				console.log('Started connect web server on http://localhost:' + settings.serverPort + '.');
-				open('http://localhost:' + settings.serverPort);
-			});
-	});
-
-	gulp.task('tinylr', function () {
-		livereload.listen(settings.livereloadPort, function (err){
-			if (err) return console.log(err);
+	server
+		.listen(settings.serverPort)
+		.on('listening', function() {
+			console.log('Started connect web server on http://localhost:' + settings.serverPort + '.');
+			open('http://localhost:' + settings.serverPort);
 		});
-	});
+});
 
-	gulp.task('server', ['local:server', 'tinylr'], function () {
-		console.log('------------------>>>> firing server  <<<<-----------------------');
+gulp.task('tinylr', function () {
+	livereload.listen(settings.livereloadPort, function (err){
+		if (err) return console.log(err);
 	});
+});
+
+gulp.task('server', ['local:server', 'tinylr'], function () {
+	console.log('------------------>>>> firing server  <<<<-----------------------');
+});
 
 
 
 /*============================================================
-=                          JS-HINT                          =
-============================================================*/
+ =                          JS-HINT                          =
+ ============================================================*/
 
-	gulp.task('js:hint', function() {
+gulp.task('js:hint', function() {
 
-		console.log('-------------------------------------------------- JS - HINT');
-		var stream = gulp.src([settings.src.js + 'app.js', '!' + settings.src.js + 'libs/*.js', settings.src.js + '**/*.js'])
-			.pipe(jshint(hintOptions))
-			.pipe(jshint.reporter(stylish));
-		return stream;
-	});
-
-
-/*============================================================
-=                          Concat                           =
-============================================================*/
-
-	gulp.task('concat', ['concat:lib', 'concat:js', 'concat:css']);
-
-	gulp.task('concat:lib', function() {
-		console.log('-------------------------------------------------- CONCAT :lib');
-		var jsFilter = gulpFilter('**/*.js'),
-			cssFilter = gulpFilter('**/*.css');
-
-		gulpBowerFiles()
-			.pipe(jsFilter)
-			.pipe(concat("_bower.js"))
-			.pipe(gulpif(isProduction, uglify()))
-			.pipe(gulp.dest(settings.build.js))
-			.pipe(jsFilter.restore())
-			.pipe(cssFilter)
-			.pipe(concat("_bower.css"))
-			.pipe(gulp.dest(settings.build.css))
-			.pipe(cssFilter.restore())
-			.pipe(refresh(livereload));
-	});
-
-	gulp.task('concat:js', ['js:hint'], function () {
-	
-		console.log('-------------------------------------------------- CONCAT :js');
-	  	gulp.src([settings.src.js + 'libs/*.js', settings.src.js + 'app.js', settings.src.js + '*.js', settings.src.js + '**/*.js'])
-		    .pipe(concat("all.js"))
-		    // .pipe(gulpif(isProduction, rename('all.min.js')))
-		    .pipe(gulpif(isProduction, uglify()))
-		    .pipe(gulp.dest(settings.build.js))		    
-		    .pipe(refresh(livereload));        
-
-		gulp.run('js:hint');
-	});
-
-	gulp.task('convert:scss', function () {
-       console.log('-------------------------------------------------- COVERT - scss');
-       
-        var stream = gulp.src(settings.src.css + 'application.scss')
-           .pipe(sass({includePaths: [settings.src.css]}))
-           .pipe(gulp.dest(settings.scss))
-           .pipe(refresh(livereload));
-        return stream;           
-    });
-
-	gulp.task('concat:css', ['convert:scss'], function () {
-
-		console.log('-------------------------------------------------- CONCAT :css ');	  		  		
-	  	gulp.src([settings.src.css + 'fonts.css', settings.scss + 'application.css', settings.src.css + '*.css'])
-		    .pipe(concat('styles.css'))
-		    // .pipe(gulpif(isProduction, rename('styles.min.css')))
-		    .pipe(gulpif(isProduction, minifyCSS({keepSpecialComments: '*'})))
-		    .pipe(gulp.dest(settings.build.css))
-		    .pipe(refresh(livereload));
-	});
-
-	
-
+	console.log('-------------------------------------------------- JS - HINT');
+	var stream = gulp.src([settings.src.js + 'app.js', '!' + settings.src.js + 'libs/*.js', settings.src.js + '**/*.js'])
+		.pipe(jshint(hintOptions))
+		.pipe(jshint.reporter(stylish));
+	return stream;
+});
 
 
 /*============================================================
-=                          Minify				            =
-============================================================*/
+ =                          Concat                           =
+ ============================================================*/
+
+gulp.task('concat', ['concat:bower', 'concat:js', 'concat:css']);
+
+gulp.task('concat:bower', function() {
+	console.log('-------------------------------------------------- CONCAT :bower');
+	var jsFilter = gulpFilter('**/*.js'),
+		cssFilter = gulpFilter('**/*.css'),
+		restFilter = gulpFilter(['!**/*.js', '!**/*.css']);
+
+	gulpBowerFiles()
+		.pipe(jsFilter)
+		.pipe(concat("_bower.js"))
+		.pipe(gulpif(isProduction, uglify()))
+		.pipe(gulp.dest(settings.build.bower))
+		.pipe(jsFilter.restore())
+		.pipe(cssFilter)
+		.pipe(map(function(file, callback) {
+			var relativePath = path.dirname(path.relative(path.resolve(settings.src.bower), file.path));
+
+			// CSS path resolving
+			// Taken from https://github.com/enyojs/enyo/blob/master/tools/minifier/minify.js
+			var contents = file.contents.toString().replace(/url\([^)]*\)/g, function(match) {
+				// find the url path, ignore quotes in url string
+				var matches = /url\s*\(\s*(('([^']*)')|("([^"]*)")|([^'"]*))\s*\)/.exec(match),
+					url = matches[3] || matches[5] || matches[6];
+
+				// Don't modify data and http(s) urls
+				if (/^data:/.test(url) || /^http(:?s)?:/.test(url)) {
+					return "url(" + url + ")";
+				}
+				return "url(" + path.join(path.relative(settings.build.bower, settings.build.app), settings.build.bower, relativePath, url) + ")";
+			});
+			file.contents = new Buffer(contents);
+
+			callback(null, file)
+		}))
+		.pipe(concat("_bower.css"))
+		.pipe(gulp.dest(settings.build.bower))
+		.pipe(cssFilter.restore())
+		.pipe(restFilter)
+		.pipe(gulp.dest(settings.build.bower))
+		.pipe(restFilter.restore())
+		.pipe(refresh(livereload));
+});
+
+gulp.task('concat:js', ['js:hint'], function () {
+
+	console.log('-------------------------------------------------- CONCAT :js');
+	gulp.src([settings.src.js + 'libs/*.js', settings.src.js + 'app.js', settings.src.js + '*.js', settings.src.js + '**/*.js'])
+		.pipe(concat("all.js"))
+		// .pipe(gulpif(isProduction, rename('all.min.js')))
+		.pipe(gulpif(isProduction, uglify()))
+		.pipe(gulp.dest(settings.build.js))
+		.pipe(refresh(livereload));
+
+	gulp.run('js:hint');
+});
+
+gulp.task('convert:scss', function () {
+	console.log('-------------------------------------------------- COVERT - scss');
+
+	var stream = gulp.src(settings.src.css + 'application.scss')
+		.pipe(sass({includePaths: [settings.src.css]}))
+		.pipe(gulp.dest(settings.scss))
+		.pipe(refresh(livereload));
+	return stream;
+});
+
+gulp.task('concat:css', ['convert:scss'], function () {
+
+	console.log('-------------------------------------------------- CONCAT :css ');
+	gulp.src([settings.src.css + 'fonts.css', settings.scss + 'application.css', settings.src.css + '*.css'])
+		.pipe(concat('styles.css'))
+		// .pipe(gulpif(isProduction, rename('styles.min.css')))
+		.pipe(gulpif(isProduction, minifyCSS({keepSpecialComments: '*'})))
+		.pipe(gulp.dest(settings.build.css))
+		.pipe(refresh(livereload));
+});
 
 
-
-	gulp.task('image:min', function () {
-	    gulp.src(settings.src.images+'*.*')
-	        .pipe(imagemin())
-	        .pipe(gulp.dest(settings.build.images))
-	        .pipe(refresh(livereload));
-	});
 
 
 
 /*============================================================
-=                           Copy                            =
-============================================================*/
+ =                          Minify				            =
+ ============================================================*/
 
-	gulp.task('copy', ['copy:html', 'copy:images', 'copy:fonts', 'copy:html:root']);
 
-	
-	gulp.task('copy:html', function () {
-		
-		console.log('-------------------------------------------------- COPY :html');
-		gulp.src([settings.src.templates + '*.html', settings.src.templates + '**/*.html'])
-			.pipe(gulpif(isProduction, minifyHTML({comments: false, quotes: true, spare:true, empty: true, cdata:true})))
-			.pipe(gulp.dest(settings.build.templates))
-			.pipe(refresh(livereload));
-	});
 
-	gulp.task('copy:html:root', function() {
-		
-		console.log('-------------------------------------------------- COPY :html:root');
-		gulp.src(settings.src.app + '*.html')
-			.pipe(gulpif(isProduction, minifyHTML({comments: false, quotes: true, spare:true, empty: true, cdata:true})))
-			.pipe(gulp.dest(settings.build.app))
-			.pipe(refresh(livereload));
-	});
+gulp.task('image:min', function () {
+	gulp.src(settings.src.images+'*.*')
+		.pipe(imagemin())
+		.pipe(gulp.dest(settings.build.images))
+		.pipe(refresh(livereload));
+});
 
-	gulp.task('copy:images', function() {
 
-		console.log('-------------------------------------------------- COPY :images');
-		gulp.src([settings.src.images + '*.*', settings.src.images + '**/*.*'])
-			.pipe(gulp.dest(settings.build.images));
-	});
- 
- 	gulp.task('copy:fonts', function() {
 
- 		console.log('-------------------------------------------------- COPY :fonts');
-		gulp.src([settings.src.fonts + '*', settings.src.fonts + '**/*'])
-			.pipe(gulp.dest(settings.build.fonts));
-	});
+/*============================================================
+ =                           Copy                            =
+ ============================================================*/
+
+gulp.task('copy', ['copy:html', 'copy:images', 'copy:fonts', 'copy:html:root']);
+
+
+gulp.task('copy:html', function () {
+
+	console.log('-------------------------------------------------- COPY :html');
+	gulp.src([settings.src.templates + '*.html', settings.src.templates + '**/*.html'])
+		.pipe(gulpif(isProduction, minifyHTML({comments: false, quotes: true, spare:true, empty: true, cdata:true})))
+		.pipe(gulp.dest(settings.build.templates))
+		.pipe(refresh(livereload));
+});
+
+gulp.task('copy:html:root', function() {
+
+	console.log('-------------------------------------------------- COPY :html:root');
+	gulp.src(settings.src.app + '*.html')
+		.pipe(gulpif(isProduction, minifyHTML({comments: false, quotes: true, spare:true, empty: true, cdata:true})))
+		.pipe(gulp.dest(settings.build.app))
+		.pipe(refresh(livereload));
+});
+
+gulp.task('copy:images', function() {
+
+	console.log('-------------------------------------------------- COPY :images');
+	gulp.src([settings.src.images + '*.*', settings.src.images + '**/*.*'])
+		.pipe(gulp.dest(settings.build.images));
+});
+
+gulp.task('copy:fonts', function() {
+
+	console.log('-------------------------------------------------- COPY :fonts');
+	gulp.src([settings.src.fonts + '*', settings.src.fonts + '**/*'])
+		.pipe(gulp.dest(settings.build.fonts));
+});
 
 
 
 /*=========================================================================================================
-=												Watch
+ =												Watch
 
-	Incase the watch fails due to limited number of watches available on your sysmtem, the execute this
-	command on terminal
+ Incase the watch fails due to limited number of watches available on your sysmtem, the execute this
+ command on terminal
 
-	$ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-=========================================================================================================*/
+ $ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+ =========================================================================================================*/
 
-	gulp.task('watch', function () {
-		
-		console.log('watching all the files.....');
+gulp.task('watch', function () {
 
-		var cssFiles   = gulp.watch([settings.src.css + '*.css',  settings.src.css + '**/*.css'],  ['concat:css']);
-		
-		var scssFiles  = gulp.watch([settings.src.css + '*.scss', settings.src.css + '**/*.scss'], ['concat:css']);
+	console.log('watching all the files.....');
 
-        var jsFiles    = gulp.watch([settings.src.js + '*.js',    settings.src.js + '**/*.js'],    ['concat:js']);
+	var cssFiles   = gulp.watch([settings.src.css + '*.css',  settings.src.css + '**/*.css'],  ['concat:css']);
 
-        var indexFile  = gulp.watch([settings.src.app + '*.html'], ['copy:html:root']);
+	var scssFiles  = gulp.watch([settings.src.css + '*.scss', settings.src.css + '**/*.scss'], ['concat:css']);
 
-		var imageFiles = gulp.watch([settings.src.images + '*.*', settings.src.images + '**/*.*'], ['copy:images']);
+	var jsFiles    = gulp.watch([settings.src.js + '*.js',    settings.src.js + '**/*.js'],    ['concat:js']);
 
-		var fontFiles  = gulp.watch([settings.src.fonts + '*.*',  settings.src.fonts + '**/*.*'],  ['copy:fonts']);
+	var indexFile  = gulp.watch([settings.src.app + '*.html'], ['copy:html:root']);
 
-		var libFiles   = gulp.watch([settings.src.bower + '*.js', settings.src.bower + '**/*.js', 'bower.json'], ['concat:lib']);
+	var imageFiles = gulp.watch([settings.src.images + '*.*', settings.src.images + '**/*.*'], ['copy:images']);
 
-		var templateFiles = gulp.watch([settings.src.templates + '*.html', settings.src.templates + '**/*.html'], ['copy:html']);
+	var fontFiles  = gulp.watch([settings.src.fonts + '*.*',  settings.src.fonts + '**/*.*'],  ['copy:fonts']);
 
+	var libFiles   = gulp.watch([settings.src.bower + '*.js', settings.src.bower + '**/*.js', 'bower.json'], ['concat:bower']);
 
-		// Just to add log messages on Terminal, in case any file is changed
-		var printLogMsg = function (event) {
-			console.log(chalk.red('-------------------------------------------------->>>> File ' + event.path + ' was ------->>>> ' + event.type));
-		};
-
-		cssFiles.on     ('change', printLogMsg);
-		scssFiles.on    ('change', printLogMsg);
-		jsFiles.on      ('change', printLogMsg);
-		indexFile.on    ('change', printLogMsg);
-		imageFiles.on   ('change', printLogMsg);
-		fontFiles.on    ('change', printLogMsg);
-		libFiles.on     ('change', printLogMsg);
-		templateFiles.on('change', printLogMsg);
-	});
+	var templateFiles = gulp.watch([settings.src.templates + '*.html', settings.src.templates + '**/*.html'], ['copy:html']);
 
 
-/*============================================================
-=                             Clean                          =
-============================================================*/
+	// Just to add log messages on Terminal, in case any file is changed
+	var printLogMsg = function (event) {
+		console.log(chalk.red('-------------------------------------------------->>>> File ' + event.path + ' was ------->>>> ' + event.type));
+	};
 
-	gulp.task('clean', function () {
-	
-		// gulp.run('clean:css', 'clean:js', 'clean:html', 'clean:images', 'clean:fonts');
-	    gulp.src([settings.build.app], {read: false})
-	        .pipe(clean({force: true}));
-	});
-
-	gulp.task('clean:css', function () {
-
-		console.log('-------------------------------------------------- CLEAN :css');
-	    gulp.src([settings.build.css], {read: false})
-	        .pipe(clean({force: true}));
-	});
-
-	gulp.task('clean:js', function () {
-
-		console.log('-------------------------------------------------- CLEAN :js');
-	    gulp.src([settings.build.js], {read: false})
-	        .pipe(clean({force: true}));
-	});
-
-	gulp.task('clean:html', function () {
-
-		console.log('-------------------------------------------------- CLEAN :html');
-	    gulp.src([settings.build.templates], {read: false})
-	        .pipe(clean({force: true}));
-	});
-
-	gulp.task('clean:images', function () {
-
-		console.log('-------------------------------------------------- CLEAN :images');
-	    gulp.src([settings.build.images], {read: false})
-	        .pipe(clean({force: true}));
-	});
-
-	gulp.task('clean:fonts', function () {
-
-		console.log('-------------------------------------------------- CLEAN :fonts');
-	    gulp.src([settings.build.fonts+'*.*', settings.build.fonts+'**/*.*'], {read: false})
-	        .pipe(clean({force: true}));
-	});
-
-	gulp.task('clean:zip', function () {
-
-		console.log('-------------------------------------------------- CLEAN :Zip');
-		gulp.src(['zip/**/*', '!zip/build-*.zip'], {read: false})
-        	.pipe(clean({force: true}));
-	});
+	cssFiles.on     ('change', printLogMsg);
+	scssFiles.on    ('change', printLogMsg);
+	jsFiles.on      ('change', printLogMsg);
+	indexFile.on    ('change', printLogMsg);
+	imageFiles.on   ('change', printLogMsg);
+	fontFiles.on    ('change', printLogMsg);
+	libFiles.on     ('change', printLogMsg);
+	templateFiles.on('change', printLogMsg);
+});
 
 
 /*============================================================
-=                             Zip                          =
-============================================================*/
+ =                             Clean                          =
+ ============================================================*/
 
-	gulp.task('zip', function () {
-	    gulp.src([settings.build.app + '*', settings.build.app + '**/*'])
-	        .pipe(zip('build-' + new Date() + '.zip'))
-	        .pipe(gulp.dest('./zip/'));	 
+gulp.task('clean', function () {
 
-	    setTimeout(function(){	    	
-	    	gulp.run('clean:zip');   
-	    }, 500); // wait for file creation
-		    
-	});
+	// gulp.run('clean:css', 'clean:js', 'clean:html', 'clean:images', 'clean:fonts');
+	gulp.src([settings.build.app], {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task('clean:css', function () {
+
+	console.log('-------------------------------------------------- CLEAN :css');
+	gulp.src([settings.build.css], {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task('clean:js', function () {
+
+	console.log('-------------------------------------------------- CLEAN :js');
+	gulp.src([settings.build.js], {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task('clean:bower', function() {
+	console.log('-------------------------------------------------- CLEAN :lib');
+	gulp.src([settings.build.lib], {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task('clean:html', function () {
+
+	console.log('-------------------------------------------------- CLEAN :html');
+	gulp.src([settings.build.templates], {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task('clean:images', function () {
+
+	console.log('-------------------------------------------------- CLEAN :images');
+	gulp.src([settings.build.images], {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task('clean:fonts', function () {
+
+	console.log('-------------------------------------------------- CLEAN :fonts');
+	gulp.src([settings.build.fonts+'*.*', settings.build.fonts+'**/*.*'], {read: false})
+		.pipe(clean({force: true}));
+});
+
+gulp.task('clean:zip', function () {
+
+	console.log('-------------------------------------------------- CLEAN :Zip');
+	gulp.src(['zip/**/*', '!zip/build-*.zip'], {read: false})
+		.pipe(clean({force: true}));
+});
+
+
+/*============================================================
+ =                             Zip                          =
+ ============================================================*/
+
+gulp.task('zip', function () {
+	gulp.src([settings.build.app + '*', settings.build.app + '**/*'])
+		.pipe(zip('build-' + new Date() + '.zip'))
+		.pipe(gulp.dest('./zip/'));
+
+	setTimeout(function(){
+		gulp.run('clean:zip');
+	}, 500); // wait for file creation
+
+});
 
 
 
 /*============================================================
-=                             Start                          =
-============================================================*/
+ =                             Start                          =
+ ============================================================*/
 
 
-	gulp.task('build', function(){
-		console.log(chalk.blue('-------------------------------------------------- BUILD - Development Mode'));
-		runSequence('copy', 'concat', 'watch');
-	});
+gulp.task('build', function(){
+	console.log(chalk.blue('-------------------------------------------------- BUILD - Development Mode'));
+	runSequence('copy', 'concat', 'watch');
+});
 
-	gulp.task('build:prod', function(){
-		console.log(chalk.blue('-------------------------------------------------- BUILD - Production Mode'));
-		isProduction = true;
-		runSequence('copy', 'concat', 'watch');
-	});
+gulp.task('build:prod', function(){
+	console.log(chalk.blue('-------------------------------------------------- BUILD - Production Mode'));
+	isProduction = true;
+	runSequence('copy', 'concat', 'watch');
+});
 
-	gulp.task('default', [ 'build', 'server']);
+gulp.task('default', [ 'build', 'server']);
 
-	// Just in case you are too lazy to type: $ gulp --type production
-	gulp.task('prod', ['build:prod', 'server']);
+// Just in case you are too lazy to type: $ gulp --type production
+gulp.task('prod', ['build:prod', 'server']);
 
 
 /*============================================================
-=                       Browser Sync                         =
-============================================================*/
+ =                       Browser Sync                         =
+ ============================================================*/
 
-	gulp.task('sync', function() {
-	    browserSync.init([settings.build.app + 'index.html', settings.build + 'templates/*.html', settings.build.css + '*.css', settings.build.js + '*.js'], {
-	         proxy: {
-	            host: '127.0.0.1',
-	            port: settings.serverPort
-	        }
-	    });
+gulp.task('sync', function() {
+	browserSync.init([settings.build.app + 'index.html', settings.build + 'templates/*.html', settings.build.css + '*.css', settings.build.js + '*.js'], {
+		proxy: {
+			host: '127.0.0.1',
+			port: settings.serverPort
+		}
 	});
+});
 
 
