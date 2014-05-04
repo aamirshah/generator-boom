@@ -9,7 +9,7 @@ var gutil      		= require('gulp-util'),
 	sass       		= require('gulp-sass'),
 	minifyCSS  		= require('gulp-minify-css'),
 	minifyHTML 		= require('gulp-minify-html'),
-	gzip       		= require("gulp-gzip"),
+	gzip       		= require('gulp-gzip'),
 	imagemin   		= require('gulp-imagemin'),
 	watch      		= require('gulp-watch'),
 	plumber    		= require('gulp-plumber'),
@@ -78,12 +78,12 @@ gulp.task('local:server', function () {
 
 		app = connect.apply(null, middleware),
 		server = http.createServer(app);
-	server
-		.listen(settings.serverPort)
-		.on('listening', function() {
-			console.log('Started connect web server on http://localhost:' + settings.serverPort + '.');
-			open('http://localhost:' + settings.serverPort);
-		});
+		server
+			.listen(settings.serverPort)
+			.on('listening', function() {
+				console.log('Started connect web server on http://localhost:' + settings.serverPort + '.');
+				open('http://localhost:' + settings.serverPort);
+			});
 });
 
 gulp.task('tinylr', function () {
@@ -126,7 +126,7 @@ gulp.task('concat:bower', function() {
 
 	gulpBowerFiles()
 		.pipe(jsFilter)
-		.pipe(concat("_bower.js"))
+		.pipe(concat('_bower.js'))
 		.pipe(gulpif(isProduction, uglify()))
 		.pipe(gulp.dest(settings.build.bower))
 		.pipe(jsFilter.restore())
@@ -152,7 +152,7 @@ gulp.task('concat:bower', function() {
 
 			callback(null, file)
 		}))
-		.pipe(concat("_bower.css"))
+		.pipe(concat('_bower.css'))
 		.pipe(gulp.dest(settings.build.bower))
 		.pipe(cssFilter.restore())
 		.pipe(assetsFilter)
@@ -165,7 +165,7 @@ gulp.task('concat:js', ['js:hint'], function () {
 
 	console.log('-------------------------------------------------- CONCAT :js');
 	gulp.src([settings.src.js + 'libs/*.js', settings.src.js + 'app.js', settings.src.js + '*.js', settings.src.js + '**/*.js'])
-		.pipe(concat("all.js"))
+		.pipe(concat('all.js'))
 		// .pipe(gulpif(isProduction, rename('all.min.js')))
 		.pipe(gulpif(isProduction, uglify()))
 		.pipe(gulp.dest(settings.build.js))

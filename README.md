@@ -60,15 +60,15 @@ To install the dependency packages (Required **only if** you need to run the `np
 
 1. You first need to install all the node modules required by boom.
 ```
-    npm run-script preinstall
+    npm install
 ```
-Or else you can directly run `npm install`
+
 
 2. After that you need to download all the libraries using bower.
 ```
-    npm run-script postinstall
+    bower install
 ```
-Or else you can directly run `bower install`
+
 
 ---
 Finally to start the server
