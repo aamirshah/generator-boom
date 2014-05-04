@@ -56,28 +56,13 @@ Answer few question on the command prompt and **Thats it!**
 
 ---
 
-To install the dependency packages (Required **only if** you need to run the `npm install` as a **super user**)
+Running
+-------
 
-1. You first need to install all the node modules required by boom.
-```
-    npm install
-```
-
-
-2. After that you need to download all the libraries using bower.
-```
-    bower install
-```
-
-
----
-Finally to start the server
-
-```sh
-    gulp
-```
-Or else you can run `npm start`
-
+ 1. You first need to install all the node modules required by boom `npm install`
+ 2. After that you need to download all the libraries using bower `bower install`
+ 3. Finally to start the server `gulp`
+ 
 -----------
 
 
@@ -103,7 +88,6 @@ Or else you can run `npm start`
     |- index.html
     |- bower.json
     |- package.json
-    |- Gruntfile.js
     |- gulpfile.js
 ```
 
@@ -128,6 +112,30 @@ The avilable sub-generators are
 * [boom:style](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md)
 * [boom:view](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md)
 * [boom:test](https://github.com/aamirshah/generator-boom/blob/master/test/USAGE.md)
+
+-----------------------------------
+
+Usage
+---
+
+**BrowserSync** 
+
+On the terminal just type `gulp bs`. It will automatically open a new tab in the browser. Copy the URL to other devices. Thats it !
+
+
+**Production Build**
+
+In order to generate the production code for deployment use `$ gulp --type production` or in case you are too lazy then type `$ gulp prod`.
+
+------------------------
+
+Latest from Boom
+---
+**Grunt** has been permanently removed. (Thanks to [Jascha Dachtera](https://github.com/jdachtera)).
+**Bower CSS** support has been added.
+Deprecated method `gulp.run` is removed.
+
+------------------------------
 
 
 <i class="icon-pencil"></i> Special Thanks
