@@ -299,7 +299,7 @@ Generator.prototype.app = function app() {
   this.mkdir('app/js/services');
   this.mkdir('app/js/providers');
   this.mkdir('app/js/libs');
-  this.mkdir('app/images');
+  this.mkdir('app/img');
   this.mkdir('app/fonts');
   
   this.mkdir('tests/e2e/');
