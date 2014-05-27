@@ -107,10 +107,44 @@ gulp.task('concat', ['concat:bower', 'concat:js', 'concat:css']);
 gulp.task('concat:bower', function () {
 	console.log('-------------------------------------------------- CONCAT :bower');
 
+	var jsFilter = gulpPlugins.filter('**/*.js'),
+		cssFilter = gulpPlugins.filter('**/*.css'),
+		assetsFilter = gulpPlugins.filter(['!**/*.js', '!**/*.css', '!**/*.scss']);
+
 	gulpPlugins.bowerFiles()
-		.pipe(gulpPlugins.concat('_bower.min.js'))
-		.pipe(gulpPlugins.uglify())
-		.pipe(gulp.dest(SETTINGS.build.js))
+		.pipe(jsFilter)
+		.pipe(gulpPlugins.concat('_bower.js'))
+		.pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
+		.pipe(gulp.dest(SETTINGS.build.bower))
+		.pipe(jsFilter.restore())
+		.pipe(cssFilter)
+		.pipe(gulpPlugins.sass())
+		.pipe(map(function(file, callback) {
+			var relativePath = path.dirname(path.relative(path.resolve(SETTINGS.src.bower), file.path));
+
+			// CSS path resolving
+			// Taken from https://github.com/enyojs/enyo/blob/master/tools/minifier/minify.js
+			var contents = file.contents.toString().replace(/url\([^)]*\)/g, function(match) {
+				// find the url path, ignore quotes in url string
+				var matches = /url\s*\(\s*(('([^']*)')|("([^"]*)")|([^'"]*))\s*\)/.exec(match),
+					url = matches[3] || matches[5] || matches[6];
+
+				// Don't modify data and http(s) urls
+				if (/^data:/.test(url) || /^http(:?s)?:/.test(url)) {
+					return "url(" + url + ")";
+				}
+				return "url(" + path.join(path.relative(SETTINGS.build.bower, SETTINGS.build.app), SETTINGS.build.bower, relativePath, url) + ")";
+			});
+			file.contents = new Buffer(contents);
+
+			callback(null, file)
+		}))
+		.pipe(gulpPlugins.concat('_bower.css'))
+		.pipe(gulp.dest(SETTINGS.build.bower))
+		.pipe(cssFilter.restore())
+		.pipe(assetsFilter)
+		.pipe(gulp.dest(SETTINGS.build.bower))
+		.pipe(assetsFilter.restore())
 		.pipe(gulpPlugins.livereload(livereload));
 });
 
