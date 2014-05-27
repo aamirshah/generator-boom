@@ -36,7 +36,7 @@ var	SETTINGS = {
 		templates: 'build/templates/',
 		images: 'build/images/',
 		fonts: 'build/fonts/',
-		bower: 'bower_components/'
+		bower: 'build/js/'
 	},
 	scss: 'scss/'
 };
@@ -113,7 +113,7 @@ gulp.task('concat:bower', function () {
 
 	gulpPlugins.bowerFiles()
 		.pipe(jsFilter)
-		.pipe(gulpPlugins.concat('_bower.js'))
+		.pipe(gulpPlugins.concat('_bower.min.js'))
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
 		.pipe(gulp.dest(SETTINGS.build.bower))
 		.pipe(jsFilter.restore())
