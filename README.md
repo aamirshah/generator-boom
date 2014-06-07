@@ -131,9 +131,11 @@ In order to generate the production code for deployment use `$ gulp --type produ
 
 Latest from Boom
 ---
-**Grunt** has been permanently removed. (Thanks to [Jascha Dachtera](https://github.com/jdachtera)).
-**Bower CSS** support has been added.
-Deprecated method `gulp.run` is removed.
+
+ 1. **Grunt** has been permanently removed (Thanks to [Jascha Dachtera](https://github.com/jdachtera))
+ 2. **Bower CSS** support has been added
+ 3. Deprecated method `gulp.run` is removed
+
 
 ------------------------------
 
@@ -159,8 +161,7 @@ License
 ---------------
 
 The MIT License
-
-Copyright (c) 2014 Aamir Shah (cse.aamir@gmail.com).
+Copyright (c) 2014 Aamir Shah (www.shahaamir.com).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -180,3 +181,5 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+
+  [1]: www.shahaamir.com
