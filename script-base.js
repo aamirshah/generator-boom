@@ -98,7 +98,7 @@ MywebGenerator.prototype.addScriptToIndex = function (script) {
       file: fullPath,
       needle: '<!-- endbuild -->',
       splicable: [
-        '<script src="scripts/' + script.replace('\\', '/') + '.js"></script>'
+        '<script src="js/' + script.replace('\\', '/') + '.js"></script>'
       ]
     });
   } catch (e) {
