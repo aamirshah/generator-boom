@@ -351,7 +351,7 @@ gulp.task('bs', function () {
     browserSync.init([SETTINGS.build.app + 'index.html', SETTINGS.build + 'templates/*.html', SETTINGS.build.css + '*css', SETTINGS.build.js + '*.js'], {
 		proxy: {
             host: '127.0.0.1',
-            port: SETTINGS.serverPort
+            port: serverConfig.port
         }
     });
 });
