@@ -131,10 +131,10 @@ In order to generate the production code for deployment use `$ gulp --type produ
 
 Latest from Boom
 ---
-
- 1. **Grunt** has been permanently removed (Thanks to [Jascha Dachtera](https://github.com/jdachtera))
- 2. **Bower CSS** support has been added
- 3. Deprecated method `gulp.run` is removed
+ - **gulp-connect** is now used instead of `connect` (Thanks to [Gokul](https://github.com/gokulkrishh))
+ - **Grunt** has been permanently removed (Thanks to [Jascha Dachtera](https://github.com/jdachtera))
+ - **Bower CSS** support has been added
+ - Deprecated method `gulp.run` is removed
 
 
 ------------------------------

@@ -1,19 +1,17 @@
 'use strict';
 
-var gulp     = require('gulp'),
+var gulp       = require('gulp'),
 	stylish    = require('jshint-stylish'),
 	path       = require('path'),
-	connect  	= require('gulp-connect'),
-	http       = require('http'),
 	open       = require('open'),
 	fs         = require('fs'),
 	chalk      = require('chalk'),
 	args       = require('yargs').argv,
+	map        = require('map-stream'),
 	browserSync = require('browser-sync'),
 	runSequence = require('run-sequence'),
-	map         = require('map-stream');
+	gulpPlugins = require('gulp-load-plugins')();
 
-var gulpPlugins = require('gulp-load-plugins')();
 
 var	SETTINGS = {
 	src: {
@@ -22,8 +20,7 @@ var	SETTINGS = {
 		js: 'app/js/',
 		templates: 'app/templates/',
 		images: 'app/images/',
-		fonts: 'app/fonts/',
-		bower: 'bower_components/'
+		fonts: 'app/fonts/'
 	},
 	build: {
 		app: 'build/',
@@ -32,16 +29,16 @@ var	SETTINGS = {
 		templates: 'build/templates/',
 		images: 'build/images/',
 		fonts: 'build/fonts/',
-		bower: 'build/js/'
+		bower: 'build/bower/' // If you change this, you will have to change in index.html as well.
 	},
 	scss: 'scss/'
 };
 
 //server and live reload config
 var serverConfig = {
-	root : 'build',
-	host : 'localhost',
-	port : 9000,
+	root: 'build',
+	host: 'localhost',
+	port: 9000,
 	livereload: true
 };
 
@@ -53,17 +50,16 @@ var isProduction = args.type === 'production';
 
 
 /*============================================================
-=                          Server (Live - Reload)            =
+=>                          Server
 ============================================================*/
 
-gulp.task('local:server', function () {
-	connect.server(serverConfig);
+gulp.task('server', function () {
+
+	console.log('------------------>>>> firing server  <<<<-----------------------');
+	gulpPlugins.connect.server(serverConfig);
+	
 	console.log('Started connect web server on http://localhost:' + serverConfig.port + '.');
 	open('http://localhost:' + serverConfig.port);
-});
-
-gulp.task('server', ['local:server'], function () {
-	console.log('------------------>>>> firing server  <<<<-----------------------');
 });
 
 
@@ -97,7 +93,7 @@ gulp.task('concat:bower', function () {
 
 	gulpPlugins.bowerFiles()
 		.pipe(jsFilter)
-		.pipe(gulpPlugins.concat('_bower.min.js'))
+		.pipe(gulpPlugins.concat('_bower.js'))
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
 		.pipe(gulp.dest(SETTINGS.build.bower))
 		.pipe(jsFilter.restore())
@@ -129,7 +125,7 @@ gulp.task('concat:bower', function () {
 		.pipe(assetsFilter)
 		.pipe(gulp.dest(SETTINGS.build.bower))
 		.pipe(assetsFilter.restore())
-		.pipe(connect.reload());
+		.pipe(gulpPlugins.connect.reload());
 });
 
 gulp.task('concat:js', ['js:hint'], function () {
@@ -139,7 +135,7 @@ gulp.task('concat:js', ['js:hint'], function () {
 	    .pipe(gulpPlugins.concat('all.js'))
 	    .pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
 	    .pipe(gulp.dest(SETTINGS.build.js))
-	    .pipe(connect.reload());
+	    .pipe(gulpPlugins.connect.reload());
 });
 
 gulp.task('convert:scss', function () {
@@ -148,18 +144,18 @@ gulp.task('convert:scss', function () {
     var stream = gulp.src(SETTINGS.src.css + 'application.scss')
        .pipe(gulpPlugins.sass({includePaths: [SETTINGS.src.css]}))
        .pipe(gulp.dest(SETTINGS.scss))
-       .pipe(connect.reload());
+       .pipe(gulpPlugins.connect.reload());
     return stream;
 });
 
 gulp.task('concat:css', ['convert:scss'], function () {
 
 	console.log('-------------------------------------------------- CONCAT :css ');
-	gulp.src([SETTINGS.src.css + 'reset-api.css', SETTINGS.src.css + 'fonts.css', SETTINGS.scss + 'application.css', SETTINGS.src.css + '*.css'])
+	gulp.src([SETTINGS.src.css + 'fonts.css', SETTINGS.scss + 'application.css', SETTINGS.src.css + '*.css'])
 	    .pipe(gulpPlugins.concat('styles.css'))
 	    .pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyCss({keepSpecialComments: '*'})))
 	    .pipe(gulp.dest(SETTINGS.build.css))
-	    .pipe(connect.reload());
+	    .pipe(gulpPlugins.connect.reload());
 });
 
 
@@ -171,7 +167,7 @@ gulp.task('image:min', function () {
 	gulp.src(SETTINGS.src.images + '**')
         .pipe(gulpPlugins.imagemin())
         .pipe(gulp.dest(SETTINGS.build.images))
-        .pipe(connect.reload());
+        .pipe(gulpPlugins.connect.reload());
 });
 
 
@@ -188,7 +184,7 @@ gulp.task('copy:html', function () {
 	gulp.src([SETTINGS.src.templates + '*.html', SETTINGS.src.templates + '**/*.html'])
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyHtml({comments: false, quotes: true, spare: true, empty: true, cdata: true})))
 		.pipe(gulp.dest(SETTINGS.build.templates))
-		.pipe(connect.reload());
+		.pipe(gulpPlugins.connect.reload());
 });
 
 gulp.task('copy:html:root', function () {
@@ -197,7 +193,7 @@ gulp.task('copy:html:root', function () {
 	gulp.src(SETTINGS.src.app + '*.html')
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyHtml({comments: false, quotes: true, spare: true, empty: true, cdata: true})))
 		.pipe(gulp.dest(SETTINGS.build.app))
-		.pipe(connect.reload());
+		.pipe(gulpPlugins.connect.reload());
 });
 
 gulp.task('copy:images', function () {

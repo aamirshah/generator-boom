@@ -21,15 +21,15 @@
     "gulp-filter": "*",
     "gulp-watch": "~0.3.3",
     "gulp-zip": "~0.1.2",
+    "gulp-bower-files": "*",
+    "gulp-load-plugins": "^0.5.1",
     "jshint-stylish": "*",
     "open": "*",
     "protractor": "~0.16.1",
     "run-sequence": "~0.3.6",
     "supertest": "~0.9.0",
     "yargs": "^1.2.1",
-    "gulp-bower-files": "*",
-    "map-stream": "*",
-    "gulp-load-plugins": "^0.5.1"
+    "map-stream": "*"
   },
   "engines": {
     "node": ">=0.8.0"
