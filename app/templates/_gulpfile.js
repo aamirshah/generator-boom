@@ -3,11 +3,9 @@
 var gulp     = require('gulp'),
 	stylish    = require('jshint-stylish'),
 	path       = require('path'),
-	connect    = require('connect'),
+	connect  	= require('gulp-connect'),
 	http       = require('http'),
 	open       = require('open'),
-	tinylr     = require('tiny-lr'),
-	livereload = tinylr(),
 	fs         = require('fs'),
 	chalk      = require('chalk'),
 	args       = require('yargs').argv,
@@ -18,8 +16,6 @@ var gulp     = require('gulp'),
 var gulpPlugins = require('gulp-load-plugins')();
 
 var	SETTINGS = {
-	livereloadPort: 35729,
-	serverPort: 9000,
 	src: {
 		app: 'app/',
 		css: 'app/css/',
@@ -41,6 +37,14 @@ var	SETTINGS = {
 	scss: 'scss/'
 };
 
+//server and live reload config
+var serverConfig = {
+	root : 'build',
+	host : 'localhost',
+	port : 9000,
+	livereload: true
+};
+
 // jsHint Options.
 var hintOptions = JSON.parse(fs.readFileSync('.jshintrc', 'utf8'));
 
@@ -53,32 +57,12 @@ var isProduction = args.type === 'production';
 ============================================================*/
 
 gulp.task('local:server', function () {
-
-	var middleware = [
-		require('connect-livereload')({ port: SETTINGS.livereloadPort }),
-		connect.static(SETTINGS.build.app),
-		connect.directory(SETTINGS.build.app)
-	],
-
-	app = connect.apply(null, middleware),
-	server = http.createServer(app);
-	server
-		.listen(SETTINGS.serverPort)
-		.on('listening', function () {
-			console.log('Started connect web server on http://localhost:' + SETTINGS.serverPort + '.');
-			open('http://localhost:' + SETTINGS.serverPort);
-		});
+	connect.server(serverConfig);
+	console.log('Started connect web server on http://localhost:' + serverConfig.port + '.');
+	open('http://localhost:' + serverConfig.port);
 });
 
-gulp.task('tinylr', function () {
-	livereload.listen(SETTINGS.livereloadPort, function (err) {
-		if (err) {
-			return console.log(err);
-		}
-	});
-});
-
-gulp.task('server', ['local:server', 'tinylr'], function () {
+gulp.task('server', ['local:server'], function () {
 	console.log('------------------>>>> firing server  <<<<-----------------------');
 });
 
@@ -145,7 +129,7 @@ gulp.task('concat:bower', function () {
 		.pipe(assetsFilter)
 		.pipe(gulp.dest(SETTINGS.build.bower))
 		.pipe(assetsFilter.restore())
-		.pipe(gulpPlugins.livereload(livereload));
+		.pipe(connect.reload());
 });
 
 gulp.task('concat:js', ['js:hint'], function () {
@@ -155,7 +139,7 @@ gulp.task('concat:js', ['js:hint'], function () {
 	    .pipe(gulpPlugins.concat('all.js'))
 	    .pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
 	    .pipe(gulp.dest(SETTINGS.build.js))
-	    .pipe(gulpPlugins.livereload(livereload));
+	    .pipe(connect.reload());
 });
 
 gulp.task('convert:scss', function () {
@@ -164,7 +148,7 @@ gulp.task('convert:scss', function () {
     var stream = gulp.src(SETTINGS.src.css + 'application.scss')
        .pipe(gulpPlugins.sass({includePaths: [SETTINGS.src.css]}))
        .pipe(gulp.dest(SETTINGS.scss))
-       .pipe(gulpPlugins.livereload(livereload));
+       .pipe(connect.reload());
     return stream;
 });
 
@@ -175,7 +159,7 @@ gulp.task('concat:css', ['convert:scss'], function () {
 	    .pipe(gulpPlugins.concat('styles.css'))
 	    .pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyCss({keepSpecialComments: '*'})))
 	    .pipe(gulp.dest(SETTINGS.build.css))
-	    .pipe(gulpPlugins.livereload(livereload));
+	    .pipe(connect.reload());
 });
 
 
@@ -187,7 +171,7 @@ gulp.task('image:min', function () {
 	gulp.src(SETTINGS.src.images + '**')
         .pipe(gulpPlugins.imagemin())
         .pipe(gulp.dest(SETTINGS.build.images))
-        .pipe(gulpPlugins.livereload(livereload));
+        .pipe(connect.reload());
 });
 
 
@@ -204,7 +188,7 @@ gulp.task('copy:html', function () {
 	gulp.src([SETTINGS.src.templates + '*.html', SETTINGS.src.templates + '**/*.html'])
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyHtml({comments: false, quotes: true, spare: true, empty: true, cdata: true})))
 		.pipe(gulp.dest(SETTINGS.build.templates))
-		.pipe(gulpPlugins.livereload(livereload));
+		.pipe(connect.reload());
 });
 
 gulp.task('copy:html:root', function () {
@@ -213,7 +197,7 @@ gulp.task('copy:html:root', function () {
 	gulp.src(SETTINGS.src.app + '*.html')
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.minifyHtml({comments: false, quotes: true, spare: true, empty: true, cdata: true})))
 		.pipe(gulp.dest(SETTINGS.build.app))
-		.pipe(gulpPlugins.livereload(livereload));
+		.pipe(connect.reload());
 });
 
 gulp.task('copy:images', function () {
@@ -367,7 +351,7 @@ gulp.task('bs', function () {
     browserSync.init([SETTINGS.build.app + 'index.html', SETTINGS.build + 'templates/*.html', SETTINGS.build.css + '*css', SETTINGS.build.js + '*.js'], {
 		proxy: {
             host: '127.0.0.1',
-            port: SETTINGS.serverPort
+            port: serverConfig.port
         }
     });
 });
