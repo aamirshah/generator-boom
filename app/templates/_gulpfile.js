@@ -12,6 +12,10 @@ var gulp       = require('gulp'),
 	runSequence = require('run-sequence'),
 	gulpPlugins = require('gulp-load-plugins')();
 
+// chalk config
+var errorLog  = chalk.red.bold,
+	hintLog   = chalk.blue,
+	changeLog = chalk.red;
 
 var	SETTINGS = {
 	src: {
@@ -140,9 +144,15 @@ gulp.task('concat:js', ['js:hint'], function () {
 
 gulp.task('convert:scss', function () {
 	console.log('-------------------------------------------------- COVERT - scss');
-   
+
+	// Callback to show sass error
+	var showError = function(err) {
+		console.log(errorLog('\n SASS file has error clear it to see changes, see below log ------------->>> \n'));
+		console.log(errorLog(err));
+	};
+
     var stream = gulp.src(SETTINGS.src.css + 'application.scss')
-       .pipe(gulpPlugins.sass({includePaths: [SETTINGS.src.css]}))
+       .pipe(gulpPlugins.sass({includePaths: [SETTINGS.src.css], onError: showError}))
        .pipe(gulp.dest(SETTINGS.scss))
        .pipe(gulpPlugins.connect.reload());
     return stream;
@@ -251,7 +261,7 @@ gulp.task('watch', function () {
 				runSequence('copy', 'concat', 'watch');
 			}, 500);
 		}
-		console.log(chalk.red('-------------------------------------------------->>>> File ' + event.path + ' was ------->>>> ' + event.type));
+		console.log(changeLog('-------------------------------------------------->>>> File ' + event.path + ' was ------->>>> ' + event.type));
 	};
 
 	watchedFiles.forEach(function (watchedFile) {
@@ -322,12 +332,12 @@ gulp.task('zip', function () {
 
 
 gulp.task('build', function () {
-	console.log(chalk.blue('-------------------------------------------------- BUILD - Development Mode'));
+	console.log(hintLog('-------------------------------------------------- BUILD - Development Mode'));
 	runSequence('copy', 'concat', 'watch');
 });
 
 gulp.task('build:prod', function () {
-	console.log(chalk.blue('-------------------------------------------------- BUILD - Production Mode'));
+	console.log(hintLog('-------------------------------------------------- BUILD - Production Mode'));
 	isProduction = true;
 	runSequence('copy', 'concat', 'watch');
 });
