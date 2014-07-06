@@ -24,7 +24,8 @@ var	SETTINGS = {
 		js: 'app/js/',
 		templates: 'app/templates/',
 		images: 'app/images/',
-		fonts: 'app/fonts/'
+		fonts: 'app/fonts/',
+		bower: 'bower_components/'
 	},
 	build: {
 		app: 'build/',
