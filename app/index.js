@@ -87,7 +87,7 @@ Generator.prototype.askForLib = function askFor() {
         message: 'Which library would you like to add :',
         choices: ['none', 'jQuery', 'zepto']
     }], function (props) {
-        if(props.which === 'jQuery') {
+        if (props.which === 'jQuery') {
             this.jquery = true;
             this.zepto = false;
         } else if (props.which === 'zepto') {
@@ -155,28 +155,28 @@ Generator.prototype.askForModules = function askForModules() {
         var angMods = [];
 
         if (this.cookiesModule) {
-          angMods.push("'ngCookies'");
+          angMods.push('"ngCookies"');
           }
 
           if (this.resourceModule) {
-              angMods.push("'ngResource'");
+              angMods.push('"ngResource"');
           }
 
           if (this.sanitizeModule) {
-              angMods.push("'ngSanitize'");
+              angMods.push('"ngSanitize"');
           }
 
           if (this.routeModule) {      
-              angMods.push("'ngRoute'");
+              angMods.push('"ngRoute"');
               this.env.options.ngRoute = true;
           }
 
           if (this.animateModule) {      
-              angMods.push("'ngAnimate'");      
+              angMods.push('"ngAnimate"');
           }
 
           if (angMods.length) {
-              this.env.options.angularDeps = this.env.options.angularDeps + angMods.join(", ");      
+              this.env.options.angularDeps = this.env.options.angularDeps + angMods.join(", ");
           }
 
           this.angularModules = this.env.options.angularDeps;
@@ -198,9 +198,9 @@ Generator.prototype.askForAngularUI = function askFor() {
 
         this.ng_ui = props.ng_ui;
         
-        if (this.ng_ui) {      
-          this.callUIModule = true;
-        } 
+        if (this.ng_ui) {
+            this.callUIModule = true;
+        }
 
         cb();
     }.bind(this));
@@ -208,7 +208,7 @@ Generator.prototype.askForAngularUI = function askFor() {
 
 Generator.prototype.askForUI = function() {
 
-    if (!this.callUIModule) {      
+    if (!this.callUIModule) {
         return false;
     }
 
@@ -247,19 +247,19 @@ Generator.prototype.askForUI = function() {
         var angMods = [];
 
         if (this.utilsModule) {
-            angMods.push("'ui.utils'");
+            angMods.push('"ui.utils"');
         }
 
         if (this.bootstrapModule) {
-            angMods.push("'ui.bootstrap'");
+            angMods.push('"ui.bootstrap"');
         }
 
         if (this.uirouterModule) {
-            angMods.push("'ui.router'");
+            angMods.push('"ui.router"');
         }
 
-        if (this.gridModule) {          
-            angMods.push("'ngGrid'");
+        if (this.gridModule) {
+            angMods.push('"ngGrid"');
             this.env.options.ngUIRoute = true;
         }
 
@@ -275,7 +275,7 @@ Generator.prototype.askForUI = function() {
         this.ngUIRoute = this.env.options.ngRoute;
 
         cb();
-    }.bind(this));  
+    }.bind(this));
 };
 
 Generator.prototype.app = function app() {
