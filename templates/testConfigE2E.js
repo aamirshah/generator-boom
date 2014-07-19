@@ -3,33 +3,33 @@
 // iii. mv chromedriver /usr/local/bin/
 // $ protractor tests/e2e/sampleTest.js
 
-var fs = require('fs');
-var allTests = fs.readdirSync('./tests/e2e/');
+'use strict';
 
+var fs = require('fs'),
+    allTests = fs.readdirSync('./tests/e2e/');
 
-for(var i=0; i < allTests.length; i++){
-  allTests[i] = 'e2e/' + allTests[i];
+for (var i = 0; i < allTests.length; i++) {
+    allTests[i] = 'e2e/' + allTests[i];
 }
-
 
 // An example configuration file.
 exports.config = {
-  // Do not start a Selenium Standalone sever - only run this using chrome.
-  chromeOnly: true,
-  chromeDriver: '/usr/local/bin/chromedriver',
+    // Do not start a Selenium Standalone sever - only run this using chrome.
+    chromeOnly: true,
+    chromeDriver: '/usr/local/bin/chromedriver',
 
-  // Capabilities to be passed to the webdriver instance.
-  capabilities: {
-    'browserName': 'chrome'
-  },
+    // Capabilities to be passed to the webdriver instance.
+    capabilities: {
+        'browserName': 'chrome'
+    },
 
-  // Spec patterns are relative to the current working directly when
-  // protractor is called.
-  specs: allTests,
+    // Spec patterns are relative to the current working directly when
+    // protractor is called.
+    specs: allTests,
 
-  // Options to be passed to Jasmine-node.
-  jasmineNodeOpts: {
-    showColors: true,
-    defaultTimeoutInterval: 30000
-  }
+    // Options to be passed to Jasmine-node.
+    jasmineNodeOpts: {
+        showColors: true,
+        defaultTimeoutInterval: 30000
+    }
 };
