@@ -1,6 +1,6 @@
 'use strict';
-var path = require('path');
-var fs = require('fs');
+var path = require('path'),
+    fs = require('fs');
 
 module.exports = {
     rewrite: rewrite,
@@ -62,8 +62,8 @@ function appName(self) {
     var counter = 0, suffix = self.options['app-suffix'];
 
     // Have to check this because of generator bug #386
-    process.argv.forEach(function(val) {
-        if (val.indexOf('--app-suffix') > -1) {
+    process.argv.forEach(function (value) {
+        if (value.indexOf('--app-suffix') > -1) {
             counter++;
         }
     });

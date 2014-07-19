@@ -19,11 +19,11 @@ var Generator = module.exports = function Generator() {
         required: 'true'
     });
 
-    if (!this.options['css']) {
+    if (!this.options.css) {
         this.hookFor('boom:style');
     }
 
-    if (!this.options['c']) {
+    if (!this.options.c) {
         this.hookFor('boom:controller');
     }
 
@@ -31,7 +31,7 @@ var Generator = module.exports = function Generator() {
 
     if (typeof this.env.options.appPath === 'undefined') {
         try {
-        this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
+            this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
         } catch (e) {
 
         }

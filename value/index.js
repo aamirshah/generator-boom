@@ -51,5 +51,5 @@ Generator.prototype.createConstant = function createViewFiles() {
     };
 
     angularUtils.rewriteFile(config);
-    console.log('Added Value :  '+ this.name);
+    console.log('Added Value :  ' + this.name);
 };

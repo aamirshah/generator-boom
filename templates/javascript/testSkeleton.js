@@ -1,6 +1,10 @@
-describe('<%= cameledName %>', function() {
+/*global describe, beforeEach, it*/
 
-  it('should ', function() {
+'use strict';
+
+describe('<%= cameledName %>', function () {
+
+  it('should ', function () {
 
   });
 

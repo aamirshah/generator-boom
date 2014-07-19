@@ -1,3 +1,5 @@
+/*global describe, beforeEach, it*/
+
 'use strict';
 
 const REQUEST_DOMAIN = '';
@@ -14,6 +16,6 @@ describe('', function (){
         .expect(200)
         .end(function (error, response){
             console.log('Success = ', response);
-        });     
+        });
     });
 });
