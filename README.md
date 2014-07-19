@@ -7,7 +7,7 @@ This project is a Yeoman Generator, using which we can speed up our WebApp devel
 
 You can also check the [NPM Repository](https://npmjs.org/package/generator-boom) 
 
-
+[![Code Climate](https://codeclimate.com/github/rgksugan/generator-boom.png)](https://codeclimate.com/github/rgksugan/generator-boom)
 
 ----------
 
