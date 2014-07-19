@@ -2,12 +2,6 @@
 var path = require('path'),
     fs = require('fs');
 
-module.exports = {
-    rewrite: rewrite,
-    rewriteFile: rewriteFile,
-    appName: appName
-};
-
 function rewriteFile(args) {
     args.path = args.path || process.cwd();
     var fullPath = path.join(args.path, args.file);
@@ -74,3 +68,9 @@ function appName(self) {
     }
     return suffix ? self._.classify(suffix) : '';
 }
+
+module.exports = {
+    rewrite: rewrite,
+    rewriteFile: rewriteFile,
+    appName: appName
+};

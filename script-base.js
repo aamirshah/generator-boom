@@ -20,7 +20,7 @@ var MywebGenerator = module.exports = function MywebGenerator() {
 
     if (typeof this.env.options.appPath === 'undefined') {
         try {
-        this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
+            this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
         } catch (e) {
 
         }

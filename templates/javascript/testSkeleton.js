@@ -4,8 +4,8 @@
 
 describe('<%= cameledName %>', function () {
 
-  it('should ', function () {
+    it('should', function () {
 
-  });
+    });
 
 });

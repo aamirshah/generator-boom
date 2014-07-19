@@ -1,5 +1,7 @@
 /*global describe, it, browser, element, by, expect, beforeEach */
 
+'use strict';
+
 describe('angularjs homepage', function () {
 
     it('should greet the named user', function () {
