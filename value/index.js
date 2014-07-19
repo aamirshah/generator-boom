@@ -24,14 +24,14 @@ util.inherits(Generator, ScriptBase);
 Generator.prototype.askForConstantValue = function askFor() {
     var cb = this.async();
 
-    this.prompt([{  
+    this.prompt([{
         type: 'input',
         name: 'value',
         message: 'Enter the value for the value \'' + this.name + '\' : '
     }], function (props) {
-        this.constant_value = props.value;
-        if (typeof (this.constant_value) === 'string') {
-            this.constant_value = '\'' + this.constant_value + '\'';
+        this.constantValue = props.value;
+        if (typeof (this.constantValue) === 'string') {
+            this.constantValue = '\'' + this.constantValue + '\'';
         }
         cb();
     }.bind(this));
@@ -46,7 +46,7 @@ Generator.prototype.createConstant = function createViewFiles() {
         ),
         needle: '/* ---> Do not delete this comment (Values) <--- */',
         splicable: [
-            'app.value(\'' + this.name + '\', ' + this.constant_value + ');'
+            'app.value(\'' + this.name + '\', ' + this.constantValue + ');'
         ]
     };
 

@@ -20,11 +20,11 @@ var Generator = module.exports = function Generator() {
     });
 
     if (!this.options['css']) {
-        this.hookFor('boom:style');  
+        this.hookFor('boom:style');
     }
 
     if (!this.options['c']) {
-        this.hookFor('boom:controller');  
+        this.hookFor('boom:controller');
     }
 
     this.sourceRoot(path.join(__dirname, '../templates'));

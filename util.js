@@ -8,7 +8,7 @@ module.exports = {
     appName: appName
 };
 
-function rewriteFile (args) {
+function rewriteFile(args) {
     args.path = args.path || process.cwd();
     var fullPath = path.join(args.path, args.file);
 
@@ -18,11 +18,11 @@ function rewriteFile (args) {
     fs.writeFileSync(fullPath, body);
 }
 
-function escapeRegExp (str) {
+function escapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 
-function rewrite (args) {
+function rewrite(args) {
     // check if splicable is already in the body text
     var re = new RegExp(args.splicable.map(function (line) {
         return '\s*' + escapeRegExp(line);
@@ -58,7 +58,7 @@ function rewrite (args) {
     return lines.join('\n');
 }
 
-function appName (self) {
+function appName(self) {
     var counter = 0, suffix = self.options['app-suffix'];
 
     // Have to check this because of generator bug #386
