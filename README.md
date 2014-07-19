@@ -1,13 +1,14 @@
 Boom Angular.js Generator!
 =====================
 
+[![Code Climate](https://codeclimate.com/github/rgksugan/generator-boom.png)](https://codeclimate.com/github/rgksugan/generator-boom)
+
 ---------------
 
 This project is a Yeoman Generator, using which we can speed up our WebApp development. The command name is **$ yo boom**. Boom because its indeed a BOOM.
 
 You can also check the [NPM Repository](https://npmjs.org/package/generator-boom) 
 
-[![Code Climate](https://codeclimate.com/github/rgksugan/generator-boom.png)](https://codeclimate.com/github/rgksugan/generator-boom)
 
 ----------
 
