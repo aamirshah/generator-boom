@@ -21,7 +21,7 @@ Generator.prototype.rewriteAppJs = function () {
         ),
         needle: '.otherwise',
         splicable: [
-            "\t\t\ttemplateUrl: 'templates/" + this.name.toLowerCase() + '.html\''
+            '\t\t\ttemplateUrl: "templates/' + this.name.toLowerCase() + '.html"'
         ]
     };
 

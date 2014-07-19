@@ -11,7 +11,7 @@ var request = require('supertest')(REQUEST_DOMAIN);
 ====================================================*/
 
 describe('', function (){
-    it('', function (done) { 
+    it('', function (done) {
         request.get('/')
         .expect(200)
         .end(function (error, response){
