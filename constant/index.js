@@ -24,16 +24,16 @@ util.inherits(Generator, ScriptBase);
 Generator.prototype.askForConstantValue = function askFor() {
     var cb = this.async();
 
-    this.prompt([{  
+    this.prompt([{
         type: 'input',
         name: 'constant',
         message: 'Enter the value for the constant \'' + this.name + '\' : '
     }], function (props) {
 
-        this.constant_value = props.constant;
+        this.constantValue = props.constant;
 
-        if (typeof (this.constant_value) === 'string') {
-            this.constant_value = '\'' + this.constant_value + '\'';
+        if (typeof (this.constantValue) === 'string') {
+            this.constantValue = '\'' + this.constantValue + '\'';
         }
 
         cb();
@@ -50,7 +50,7 @@ Generator.prototype.createConstant = function createViewFiles() {
         ),
         needle: '/* ---> Do not delete this comment (Constants) <--- */',
         splicable: [
-            'app.constant(\'' + this.name + '\', ' + this.constant_value + ');'
+            'app.constant(\'' + this.name + '\', ' + this.constantValue + ');'
         ]
     };
     angularUtils.rewriteFile(config);
