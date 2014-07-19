@@ -17,7 +17,7 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
 
-    if (this.options['api']) {
+    if (this.options.api) {
         console.log('Adding the API skeleton');
         this.inject = '$resource';
     } else {

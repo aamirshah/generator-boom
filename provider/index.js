@@ -17,7 +17,7 @@ util.inherits(Generator, ScriptBase);
 
 Generator.prototype.createDirectiveFiles = function createDirectiveFiles() {
 
-    if (this.options['skip']) {
+    if (this.options.skip) {
         console.log('boilerplate code for provider is not added!');
         this.skip = true;
     } else {

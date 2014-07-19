@@ -32,7 +32,7 @@ Generator.prototype.createViewFiles = function createViewFiles() {
         path.join(
             this.env.options.appPath,
             'css',
-            this.name.toLowerCase() + (this.options['scss'] ? '.scss' : '.css')
+            this.name.toLowerCase() + (this.options.scss ? '.scss' : '.css')
         )
     );
 };

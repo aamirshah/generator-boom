@@ -21,8 +21,7 @@ Generator.prototype.rewriteAppJs = function () {
         ),
         needle: '.otherwise',
         splicable: [
-            "\t\t\ttemplateUrl: 'templates/" + this.name.toLowerCase() + ".html'"
-            // ,"  controller: '" + this.classedName + "Ctrl'"
+            "\t\t\ttemplateUrl: 'templates/" + this.name.toLowerCase() + '.html\''
         ]
     };
 
@@ -30,7 +29,7 @@ Generator.prototype.rewriteAppJs = function () {
         config.splicable.unshift("\t\t.when '/" + this.name + "',");
     } else {
         config.splicable.unshift("\t\t.when('/" + this.name + "', {");
-        config.splicable.push("\t\t})");
+        config.splicable.push('\t\t})');
     }
     angularUtils.rewriteFile(config);
 };

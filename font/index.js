@@ -33,7 +33,7 @@ Generator.prototype.createViewFiles = function createViewFiles() {
         needle: '/* ---> Do not delete this comment <--- */',
         splicable: [
             "\n@font-face { \n" +
-            "\tfont-family: '" + this.name + "'; \n" +        
+            "\tfont-family: '" + this.name + "'; \n" +
             "\tsrc: url('../fonts/" + this.name + "/" + this.name + ".eot'); /* IE9 Compat Modes */ \n" +
             "\tsrc: local('☺'), \n" +
             "\t\turl('../fonts/" + this.name + "/" + this.name + ".eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ \n" +

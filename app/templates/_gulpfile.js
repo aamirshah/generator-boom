@@ -147,7 +147,7 @@ gulp.task('convert:scss', function () {
 	console.log('-------------------------------------------------- COVERT - scss');
 
 	// Callback to show sass error
-	var showError = function(err) {
+	var showError = function (err) {
 		console.log(errorLog('\n SASS file has error clear it to see changes, see below log ------------->>> \n'));
 		console.log(errorLog(err));
 	};
@@ -256,7 +256,7 @@ gulp.task('watch', function () {
 
 	// Just to add log messages on Terminal, in case any file is changed
 	var onChange = function (event) {
-		if (event.type == 'deleted') {
+		if (event.type === 'deleted') {
 			runSequence('clean');
 			setTimeout(function () {
 				runSequence('copy', 'concat', 'watch');
