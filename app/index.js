@@ -196,9 +196,9 @@ Generator.prototype.askForAngularUI = function askFor() {
         default: false
     }], function (props) {
 
-        this.ng_ui = props.ng_ui;
-        
-        if (this.ng_ui) {
+        this['ng_ui'] = props['ng_ui'];
+
+        if (this.['ng_ui']) {
             this.callUIModule = true;
         }
 
@@ -206,7 +206,7 @@ Generator.prototype.askForAngularUI = function askFor() {
     }.bind(this));
 };
 
-Generator.prototype.askForUI = function() {
+Generator.prototype.askForUI = function (){
 
     if (!this.callUIModule) {
         return false;
@@ -265,9 +265,9 @@ Generator.prototype.askForUI = function() {
 
         if (angMods.length) {
             if (this.env.options.angularDeps.length) {
-                this.env.options.angularDeps = this.env.options.angularDeps + ", " + angMods.join(", ");
+                this.env.options.angularDeps = this.env.options.angularDeps + ', ' + angMods.join(', ');
             } else {
-                this.env.options.angularDeps = this.env.options.angularDeps + angMods.join(", ");
+                this.env.options.angularDeps = this.env.options.angularDeps + angMods.join(', ');
             }
         }
 
@@ -337,6 +337,6 @@ Generator.prototype.readIndex = function readIndex() {
 };
 
 Generator.prototype.createIndexHtml = function createIndexHtml() {
-    this.indexFile = this.indexFile.replace(/&apos;/g, "'");
+    this.indexFile = this.indexFile.replace(/&apos;/g, '\'');
     this.write(path.join(this.appPath, 'index.html'), this.indexFile);
 };
