@@ -67,6 +67,7 @@ gulp.task('server', function () {
 	open('http://localhost:' + serverConfig.port);
 });
 
+gulp.task('tasks', gulpPlugins.taskListing);
 
 /*============================================================
 =                          JS-HINT                          =

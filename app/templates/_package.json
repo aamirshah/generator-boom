@@ -23,6 +23,7 @@
     "gulp-zip": "~0.1.2",
     "gulp-bower-files": "*",
     "gulp-load-plugins": "^0.5.1",
+    "gulp-task-listing": "~0.3.0",
     "jshint-stylish": "*",
     "open": "*",
     "protractor": "~0.16.1",
