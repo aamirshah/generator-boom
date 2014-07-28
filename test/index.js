@@ -4,13 +4,13 @@ var util = require('util'),
 
 
 var Generator = module.exports = function Generator() {
-  ScriptBase.apply(this, arguments);
+	ScriptBase.apply(this, arguments);
 
-  this.option('api', {
-    desc: 'Adding test in api folder',
-    type: String,
-    required: 'true'
-  });
+	this.option('api', {
+		desc: 'Adding test in api folder',
+		type: String,
+		required: 'true'
+	});
 };
 
 util.inherits(Generator, ScriptBase);

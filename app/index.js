@@ -114,6 +114,7 @@ Generator.prototype.askForModernizr = function askFor() {
     }.bind(this));
 };
 
+
 Generator.prototype.askForModules = function askForModules() {
     var cb = this.async();
 
@@ -155,36 +156,36 @@ Generator.prototype.askForModules = function askForModules() {
         var angMods = [];
 
         if (this.cookiesModule) {
-          angMods.push('"ngCookies"');
-          }
+            angMods.push('"ngCookies"');
+        }
 
-          if (this.resourceModule) {
-              angMods.push('"ngResource"');
-          }
+        if (this.resourceModule) {
+            angMods.push('"ngResource"');
+        }
 
-          if (this.sanitizeModule) {
-              angMods.push('"ngSanitize"');
-          }
+        if (this.sanitizeModule) {
+            angMods.push('"ngSanitize"');
+        }
 
-          if (this.routeModule) {      
-              angMods.push('"ngRoute"');
-              this.env.options.ngRoute = true;
-          }
+        if (this.routeModule) {
+            angMods.push('"ngRoute"');
+            this.env.options.ngRoute = true;
+        }
 
-          if (this.animateModule) {      
-              angMods.push('"ngAnimate"');
-          }
+        if (this.animateModule) {
+            angMods.push('"ngAnimate"');
+        }
 
-          if (angMods.length) {
-              this.env.options.angularDeps = this.env.options.angularDeps + angMods.join(", ");
-          }
+        if (angMods.length) {
+            this.env.options.angularDeps = this.env.options.angularDeps + angMods.join(', ');
+        }
 
-          this.angularModules = this.env.options.angularDeps;
-          this.ngRoute = this.env.options.ngRoute;
+        this.angularModules = this.env.options.angularDeps;
+        this.ngRoute = this.env.options.ngRoute;
 
-          cb();
-        }.bind(this));
-    };
+        cb();
+    }.bind(this));
+};
 
 Generator.prototype.askForAngularUI = function askFor() {
     var cb = this.async();
@@ -206,7 +207,7 @@ Generator.prototype.askForAngularUI = function askFor() {
     }.bind(this));
 };
 
-Generator.prototype.askForUI = function (){
+Generator.prototype.askForUI = function () {
 
     if (!this.callUIModule) {
         return false;

@@ -26,9 +26,9 @@ Generator.prototype.rewriteAppJs = function () {
     };
 
     if (coffee) {
-        config.splicable.unshift("\t\t.when '/" + this.name + "',");
+        config.splicable.unshift('\t\t.when "/' + this.name + '",');
     } else {
-        config.splicable.unshift("\t\t.when('/" + this.name + "', {");
+        config.splicable.unshift('\t\t.when("/' + this.name + '", {');
         config.splicable.push('\t\t})');
     }
     angularUtils.rewriteFile(config);
