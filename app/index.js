@@ -198,7 +198,7 @@ Generator.prototype.askForAngularUI = function askFor() {
 
         this['ng_ui'] = props['ng_ui'];
 
-        if (this.['ng_ui']) {
+        if (this['ng_ui']) {
             this.callUIModule = true;
         }
 
