@@ -132,6 +132,8 @@ In order to generate the production code for deployment use `$ gulp --type produ
 
 Latest from Boom
 ---
+ - Boom Tool crosses **1.2K** downloads
+ - List all your tasks using `gulp tasks`
  - **gulp-connect** is now used instead of `connect` (Thanks to [Gokul](https://github.com/gokulkrishh))
  - **Grunt** has been permanently removed (Thanks to [Jascha Dachtera](https://github.com/jdachtera))
  - **Bower CSS** support has been added
@@ -139,6 +141,13 @@ Latest from Boom
 
 
 ------------------------------
+
+Contributors
+----------------------------
+* [Aamir Shah](http://shahaamir.com) 
+* [Sugan Krishnan](https://github.com/rgksugan)
+* [Gokul](https://github.com/gokulkrishh)
+* [Jascha Dachtera](https://github.com/jdachtera)
 
 
 <i class="icon-pencil"></i> Special Thanks
