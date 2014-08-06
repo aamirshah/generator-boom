@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp       = require('gulp'),
+	bowerFiles = require('main-bower-files'),
 	stylish    = require('jshint-stylish'),
 	path       = require('path'),
 	open       = require('open'),
@@ -37,6 +38,14 @@ var	SETTINGS = {
 		bower: 'build/bower/' // If you change this, you will have to change in index.html as well.
 	},
 	scss: 'scss/'
+};
+
+var bowerConfig = {
+	paths: {
+		bowerDirectory: SETTINGS.src.bower,
+		bowerrc: '.bowerrc',
+		bowerJson: 'bower.json'
+	}
 };
 
 //server and live reload config
@@ -97,7 +106,7 @@ gulp.task('concat:bower', function () {
 		cssFilter = gulpPlugins.filter('**/*.css'),
 		assetsFilter = gulpPlugins.filter(['!**/*.js', '!**/*.css', '!**/*.scss']);
 
-	gulpPlugins.bowerFiles()
+	var stream = gulp.src(bowerFiles(bowerConfig), {base: SETTINGS.src.bower})
 		.pipe(jsFilter)
 		.pipe(gulpPlugins.concat('_bower.js'))
 		.pipe(gulpPlugins.if(isProduction, gulpPlugins.uglify()))
@@ -132,6 +141,7 @@ gulp.task('concat:bower', function () {
 		.pipe(gulp.dest(SETTINGS.build.bower))
 		.pipe(assetsFilter.restore())
 		.pipe(gulpPlugins.connect.reload());
+	return stream;
 });
 
 gulp.task('concat:js', ['js:hint'], function () {
@@ -280,7 +290,7 @@ gulp.task('watch', function () {
 var cleanFiles = function (files, logMessage) {
 	console.log('-------------------------------------------------- CLEAN :' + logMessage);
 	gulp.src(files, {read: false})
-		.pipe(gulpPlugins.clean({force: true}));
+		.pipe(gulpPlugins.rimraf({force: true}));
 };
 
 gulp.task('clean', function () {
