@@ -75,7 +75,7 @@ Running
         |- application.scss
         |- fonts.css
     |- fonts/
-    |- images/
+    |- img/
     |- js/
         |- controllers/
         |- directives/
@@ -132,7 +132,8 @@ In order to generate the production code for deployment use `$ gulp --type produ
 
 Latest from Boom
 ---
- - Boom Tool crosses **1.2K** downloads
+ - Using main-bower-files instead of gulp-bower-files
+ - Boom Tool crosses **1.4K** downloads
  - List all your tasks using `gulp tasks`
  - **gulp-connect** is now used instead of `connect` (Thanks to [Gokul](https://github.com/gokulkrishh))
  - **Grunt** has been permanently removed (Thanks to [Jascha Dachtera](https://github.com/jdachtera))

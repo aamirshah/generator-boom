@@ -24,7 +24,7 @@ var	SETTINGS = {
 		css: 'app/css/',
 		js: 'app/js/',
 		templates: 'app/templates/',
-		images: 'app/images/',
+		images: 'app/img/',
 		fonts: 'app/fonts/',
 		bower: 'bower_components/'
 	},
@@ -33,7 +33,7 @@ var	SETTINGS = {
 		css: 'build/css/',
 		js: 'build/js/',
 		templates: 'build/templates/',
-		images: 'build/images/',
+		images: 'build/img/',
 		fonts: 'build/fonts/',
 		bower: 'build/bower/' // If you change this, you will have to change in index.html as well.
 	},
