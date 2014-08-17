@@ -2,12 +2,12 @@
   "name": "<%= _.slugify(_.humanize(appname)) %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "1.2.6"<% if (resourceModule) { %>,
-    "angular-resource": "1.2.6"<% } if (cookiesModule) { %>,
-    "angular-cookies": "1.2.6"<%  } if (sanitizeModule) { %>,
-    "angular-sanitize": "1.2.6"<% } if (routeModule) { %>,
-    "angular-route": "1.2.6"<%    } if (animateModule) { %>,
-    "angular-animate": "1.2.6"<%  } if (ng_ui && utilsModule) { %>,
+    "angular": "*"<% if (resourceModule) { %>,
+    "angular-resource": "*"<% } if (cookiesModule) { %>,
+    "angular-cookies": "*"<%  } if (sanitizeModule) { %>,
+    "angular-sanitize": "*"<% } if (routeModule) { %>,
+    "angular-route": "*"<%    } if (animateModule) { %>,
+    "angular-animate": "*"<%  } if (ng_ui && utilsModule) { %>,
     "angular-ui-utils": "*"<%     } if (ng_ui && bootstrapModule) { %>,
     "angular-bootstrap": "*"<%    } if (ng_ui && uirouterModule) { %>,
     "angular-ui-router": "*"<%    } if (ng_ui && gridModule) { %>,
@@ -17,8 +17,8 @@
     "modernizr": "*" <% } %>
   },
   "devDependencies": {
-    "angular-mocks": "1.2.6",
-    "angular-scenario": "1.2.6"
+    "angular-mocks": "*",
+    "angular-scenario": "*"
   },
   "overrides": {
 

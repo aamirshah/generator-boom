@@ -17,6 +17,6 @@ Example:
 This will add the value 'name' with value provide on the terminal inside:
 
 ```
-	app/js/main.js
+	app/js/app.js
 ```
 

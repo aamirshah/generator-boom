@@ -15,4 +15,4 @@ Command Usage
     > Enter the value for the constant name : [value]
 ```
 
-This will add the constant 'name' with value provide on the terminal inside `app/js/main.js`
+This will add the constant 'name' with value provide on the terminal inside `app/js/app.js`

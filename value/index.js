@@ -42,7 +42,7 @@ Generator.prototype.createConstant = function createViewFiles() {
     var config = {
         file: path.join(
             this.env.options.appPath,
-            'js/main.js'
+            'js/app.js'
         ),
         needle: '/* ---> Do not delete this comment (Values) <--- */',
         splicable: [

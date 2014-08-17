@@ -23,7 +23,7 @@ What makes it cool
  6. **JSHint** pre-configured
  7. **Protractor** (E2E tests) pre-configured
  8. **FontFace** - Add [@fontface](https://github.com/aamirshah/generator-boom/blob/master/font/USAGE.md) on fly
- 9. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in main.js (No new file will be created)
+ 9. [Constants](https://github.com/aamirshah/generator-boom/blob/master/constant/USAGE.md) and [Values](https://github.com/aamirshah/generator-boom/blob/master/value/USAGE.md) will be added in app.js (No new file will be created)
  10. [Adding Routes](https://github.com/aamirshah/generator-boom/blob/master/route/USAGE.md) will also create and link the css and controller in their respective folders.
  11. [Adding Views](https://github.com/aamirshah/generator-boom/blob/master/view/USAGE.md) is also allowed
  12. [Adding Styles](https://github.com/aamirshah/generator-boom/blob/master/style/USAGE.md) is also allowed
