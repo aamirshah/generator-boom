@@ -50,7 +50,7 @@ var bowerConfig = {
 
 //server and live reload config
 var serverConfig = {
-	root: 'build',
+	root: SETTINGS.build.app,
 	host: 'localhost',
 	port: 9000,
 	livereload: true
