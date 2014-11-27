@@ -11,6 +11,7 @@ var gulp       = require('gulp'),
 	map        = require('map-stream'),
 	browserSync = require('browser-sync'),
 	runSequence = require('run-sequence'),
+	del         = require('del'),
 	gulpPlugins = require('gulp-load-plugins')();
 
 // chalk config
@@ -291,8 +292,7 @@ gulp.task('watch', function () {
 
 var cleanFiles = function (files, logMessage) {
 	console.log('-------------------------------------------------- CLEAN :' + logMessage);
-	gulp.src(files, {read: false})
-		.pipe(gulpPlugins.rimraf({force: true}));
+	del(files);
 };
 
 gulp.task('clean', function () {
