@@ -331,7 +331,7 @@ gulp.task('clean:zip', function () {
 
 gulp.task('zip', function () {
     gulp.src([SETTINGS.build.app + '*', SETTINGS.build.app + '**/*'])
-        .pipe(gulpPlugins.zip('build-' + new Date() + '.zip'))
+        .pipe(gulpPlugins.zip('build-' + Date.now() + '.zip'))
         .pipe(gulp.dest('./zip/'));
 
     setTimeout(function () {
