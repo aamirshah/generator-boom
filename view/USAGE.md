@@ -18,8 +18,10 @@ Command Usage
 This will create:
 
 ```
+    app/templates/file_name.html
     app/css/file_name.css
-```    
+    app/js/controllers/file_name.js
+```
 
 To add a scss file 
 
@@ -29,11 +31,9 @@ To add a scss file
 
 This will create:
 
-````							 
-	app/template/file_name.html
-	app/css/file_name.css
-	app/js/controllers/file_name.js
 ```
+    app/css/file_name.css
+```    
 
 To skip adding the controller
 
