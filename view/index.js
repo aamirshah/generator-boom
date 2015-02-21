@@ -19,8 +19,21 @@ var Generator = module.exports = function Generator() {
         required: 'true'
     });
 
+    this.option('scss', {
+        desc: 'Generate scss file instead of css',
+        type: String,
+        required: 'true'
+    });
+
     if (!this.options.css) {
-        this.hookFor('boom:style');
+        this.hookFor('boom', {
+            as: 'style',
+            options: {
+                options: {
+                    'scss': this.options.scss
+                }
+            }
+        });
     }
 
     if (!this.options.c) {
